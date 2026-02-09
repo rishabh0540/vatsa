@@ -14,12 +14,14 @@
             --brass: #A68966;
             --parchment: #F9F7F4;
             --gold: #D4AF37;
+            --text-main: #1A0F0D;
+            --text-muted: #57534E;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--parchment);
-            color: var(--ebony);
+            color: var(--text-main);
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
@@ -28,8 +30,8 @@
         
         /* Sticky Header with Backdrop Blur */
         nav {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             transition: all 0.4s ease;
         }
 
@@ -38,16 +40,16 @@
             background: var(--ebony);
             padding: 8rem 0;
             overflow-x: auto;
-            border-top: 1px solid rgba(166, 137, 102, 0.2);
-            border-bottom: 1px solid rgba(166, 137, 102, 0.2);
-            scrollbar-width: none; /* Firefox */
+            border-top: 1px solid rgba(166, 137, 102, 0.3);
+            border-bottom: 1px solid rgba(166, 137, 102, 0.3);
+            scrollbar-width: none;
         }
-        .marquee-wrapper::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        .marquee-wrapper::-webkit-scrollbar { display: none; }
 
         .marquee-track {
             display: flex;
             width: max-content;
-            animation: marquee 50s linear infinite;
+            animation: marquee 45s linear infinite;
             cursor: grab;
         }
         .marquee-track:active { cursor: grabbing; }
@@ -59,26 +61,29 @@
 
         .marquee-item {
             font-family: 'Cinzel', serif;
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #FFFFFF; /* High contrast */
-            padding: 0 5rem;
+            color: #FFFFFF; 
+            padding: 0 2.5rem; /* Reduced gap for mobile density */
             white-space: nowrap;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.1em;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            line-height: 1.1;
+            line-height: 1.2;
             transition: color 0.3s ease;
         }
-        .marquee-item span { color: var(--brass); font-size: 0.9rem; opacity: 0.8; }
+        @media (min-width: 1024px) {
+            .marquee-item { padding: 0 5rem; font-size: 2rem; }
+        }
+        .marquee-item span { color: var(--brass); font-size: 0.85rem; font-weight: 400; margin-top: 0.2rem; }
 
         .marquee-item:hover { color: var(--brass); }
 
         /* Engaging Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(60px);
+            transform: translateY(40px);
             transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
@@ -87,19 +92,18 @@
             transform: translateY(0);
         }
 
-        /* Bespoke Card Textures */
+        /* Card Textures */
         .service-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(166, 137, 102, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(166, 137, 102, 0.25);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
         }
 
         .service-card:hover {
             transform: translateY(-12px);
-            background: rgba(255, 255, 255, 0.07);
-            border-color: var(--brass);
-            box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--gold);
+            box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.7);
         }
 
         /* Profile Modal */
@@ -108,24 +112,13 @@
             position: fixed;
             inset: 0;
             z-index: 2000;
-            background: rgba(5, 5, 5, 0.98);
-            backdrop-filter: blur(15px);
+            background: rgba(5, 5, 5, 0.99);
+            backdrop-filter: blur(20px);
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 1rem;
         }
-
         #profileModal.active { display: flex; }
-
-        .modal-content {
-            background: var(--parchment);
-            width: 100%;
-            max-width: 1100px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-        }
 
         /* Mobile Menu */
         #mobileMenu {
@@ -136,24 +129,13 @@
             height: 100%;
             background: var(--mahogany);
             z-index: 1500;
-            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 4rem;
         }
         #mobileMenu.active { right: 0; }
-
-        /* Custom Selection UI */
-        select { background-image: none !important; }
-
-        .custom-select-trigger {
-            border-bottom: 1px solid rgba(166, 137, 102, 0.3);
-            cursor: pointer;
-            transition: border 0.3s ease;
-        }
-
-        .custom-select-trigger:hover { border-color: var(--brass); }
 
         @media (min-width: 1024px) {
             .hero-grid {
@@ -173,15 +155,13 @@
             <i data-lucide="scale" class="w-24 h-24 text-[#A68966] animate-pulse"></i>
             <div class="absolute inset-0 bg-[#A68966]/30 blur-3xl rounded-full"></div>
         </div>
-        <div class="h-px w-80 bg-white/5 relative overflow-hidden">
+        <div class="h-px w-80 bg-white/10 relative overflow-hidden">
             <div id="loadingBar" class="absolute inset-0 w-0 bg-[#A68966]"></div>
         </div>
         <div class="mt-8 overflow-hidden">
-            <p id="loadingText" class="font-cinzel text-[#A68966] text-[10px] tracking-[1em] uppercase translate-y-10 transition-transform duration-700">Vatsyayan</p>
+            <p id="loadingText" class="font-cinzel text-[#A68966] text-[11px] tracking-[1.2em] uppercase translate-y-12 transition-transform duration-1000">Vatsyayan</p>
         </div>
     </div>
-
-    <style>@keyframes loading { 0% { left: -100%; } 100% { left: 100%; } }</style>
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed top-0 w-full z-[1400] px-8 py-6 flex justify-between items-center bg-transparent">
@@ -189,10 +169,10 @@
             <i data-lucide="scale" class="w-8 h-8 text-[#A68966]"></i>
             <div class="flex flex-col">
                 <span class="text-2xl font-bold tracking-tighter leading-none font-cinzel text-[#A68966]">VATSYAYAN</span>
-                <span class="text-[9px] tracking-[0.4em] uppercase opacity-60 font-sans text-white group-hover:text-[#A68966] transition-colors">Institutional Counsel</span>
+                <span class="text-[10px] tracking-[0.4em] uppercase font-sans text-white group-hover:text-[#A68966] transition-colors">Institutional Counsel</span>
             </div>
         </a>
-        <div class="hidden lg:flex gap-12 text-[10px] font-bold uppercase tracking-widest text-white/70">
+        <div class="hidden lg:flex gap-12 text-[10px] font-bold uppercase tracking-widest text-white">
             <a href="#manifesto" class="hover:text-[#A68966] transition-colors">Manifesto</a>
             <a href="#services" class="hover:text-[#A68966] transition-colors">Services</a>
             <a href="#panel" class="hover:text-[#A68966] transition-colors">Counsel</a>
@@ -208,7 +188,7 @@
         <button id="closeMenu" class="absolute top-10 right-10 p-2 text-[#A68966]">
             <i data-lucide="x" class="w-8 h-8"></i>
         </button>
-        <div class="flex flex-col gap-8 text-2xl font-cinzel font-bold text-[#A68966] uppercase tracking-widest">
+        <div class="flex flex-col gap-10 text-3xl font-cinzel font-bold text-[#A68966] uppercase tracking-[0.2em]">
             <a href="#manifesto" class="menu-link">Manifesto</a>
             <a href="#services" class="menu-link">Services</a>
             <a href="#panel" class="menu-link">Counsel Panel</a>
@@ -220,45 +200,45 @@
     <header id="hero" class="relative min-h-screen flex items-center px-8 lg:px-24 bg-[#050505] overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000" 
-                 class="w-full h-full object-cover opacity-15 grayscale scale-110" alt="Legal Pillar">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/40 to-transparent"></div>
+                 class="w-full h-full object-cover opacity-20 grayscale scale-110" alt="Legal Pillar">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/50 to-transparent"></div>
         </div>
         
         <div class="relative z-10 hero-grid w-full py-32">
             <div class="reveal active">
                 <div class="w-16 h-1 bg-[#A68966] mb-12"></div>
-                <h1 class="text-6xl md:text-[7rem] font-bold text-white leading-[0.9] mb-12 font-cinzel tracking-tight">
+                <h1 class="text-6xl md:text-[7.5rem] font-bold text-white leading-[0.9] mb-12 font-cinzel tracking-tight">
                     Absolute <br>
                     <span class="text-[#A68966]">Liaison.</span>
                 </h1>
-                <p class="font-sans text-xl text-white/50 font-light max-w-xl mb-16 leading-relaxed">
+                <p class="font-sans text-xl text-white/80 font-light max-w-xl mb-16 leading-relaxed">
                     Transitioning the legal profession from individual performance to a powerhouse corporate ecosystem. 15 Years of Strategic Excellence in Institutional Advocacy.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
+                <div class="flex flex-col sm:flex-row gap-10 items-start sm:items-center">
                     <a href="#panel" class="group px-12 py-6 bg-[#A68966] text-[#1A0F0D] font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-4 hover:bg-white transition-all">
                         The Counsel Portfolio <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform"></i>
                     </a>
-                    <div class="flex flex-col gap-4 border-l border-white/10 pl-8">
-                        <div class="flex items-center gap-4">
-                            <span class="text-[#A68966] font-cinzel text-3xl font-bold">15+</span>
-                            <span class="text-[9px] text-white/40 uppercase tracking-widest leading-tight">Years of <br> Industry Mastery</span>
+                    <div class="flex flex-col gap-5 border-l border-white/20 pl-8">
+                        <div class="flex items-center gap-5">
+                            <span class="text-[#A68966] font-cinzel text-4xl font-bold">15+</span>
+                            <span class="text-[10px] text-white uppercase tracking-widest leading-tight">Years of <br> Industry Mastery</span>
                         </div>
-                        <div class="flex flex-wrap gap-x-4 gap-y-2 text-[8px] text-[#A68966] font-bold uppercase tracking-[0.2em] opacity-60">
+                        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[10px] text-[#A68966] font-bold uppercase tracking-[0.3em]">
                             <span>Jharkhand</span>
-                            <span class="text-white/20">•</span>
+                            <span class="text-white/40">•</span>
                             <span>Bihar</span>
-                            <span class="text-white/20">•</span>
+                            <span class="text-white/40">•</span>
                             <span>UP</span>
-                            <span class="text-white/20">•</span>
+                            <span class="text-white/40">•</span>
                             <span>Rajasthan</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="hidden lg:block">
-                <div class="border border-white/10 p-12 bg-white/5 backdrop-blur-md">
-                    <p class="text-[10px] text-[#A68966] font-bold uppercase tracking-[0.5em] mb-6">Current Mandate</p>
-                    <p class="text-white font-cinzel text-xl leading-relaxed italic">"Providing end-to-end legal solutions under one roof with utmost accuracy, clubbing modern technology with administrative insight."</p>
+                <div class="border border-white/20 p-12 bg-white/5 backdrop-blur-md">
+                    <p class="text-[11px] text-[#A68966] font-bold uppercase tracking-[0.5em] mb-6">Current Mandate</p>
+                    <p class="text-white font-cinzel text-2xl leading-relaxed italic">"Providing end-to-end legal solutions under one roof with utmost accuracy, clubbing modern technology with administrative insight."</p>
                 </div>
             </div>
         </div>
@@ -272,89 +252,88 @@
                 <h2 class="text-5xl md:text-7xl font-bold text-[#1A0F0D] leading-tight font-cinzel mb-12">
                     Beyond the <br> <span class="text-[#A68966] italic">Individual.</span>
                 </h2>
-                <div class="w-24 h-px bg-black/10 mb-12"></div>
-                <p class="font-sans text-[#4A4744] leading-relaxed text-xl font-light text-left">
+                <div class="w-24 h-px bg-black/20 mb-12"></div>
+                <p class="font-sans text-stone-700 leading-relaxed text-2xl font-light text-left">
                     The legal profession is by-and-large confined to individuals who depend on their individual skills. We aim to change that. Vatsyayan & Associates is a professionally managed organization that delivers end-to-end legal solutions under one roof.
                 </p>
             </div>
             <div class="lg:w-1/2 flex flex-col justify-end gap-16 reveal">
                 <div class="bg-[#F9F7F4] p-12 border-l-4 border-[#A68966]">
-                    <i data-lucide="shield-check" class="w-12 h-12 text-[#A68966] mb-8"></i>
-                    <p class="text-lg font-light italic leading-relaxed text-left">"Teamwork is at the heart of our philosophy. Our team has a comprehensive understanding of the Indian Legal system and expertise in superb liaison to take a step ahead."</p>
+                    <i data-lucide="shield-check" class="w-14 h-14 text-[#A68966] mb-8"></i>
+                    <p class="text-xl font-light italic leading-relaxed text-left text-stone-800">"Teamwork is at the heart of our philosophy. Our team has a comprehensive understanding of the Indian Legal system and expertise in superb liaison to take a step ahead."</p>
                 </div>
-                <!-- 4 Stats like Ankayatra -->
-                <div class="grid grid-cols-2 gap-y-12 gap-x-8">
+                <div class="grid grid-cols-2 gap-y-16 gap-x-10">
                     <div>
-                        <p class="text-4xl font-cinzel font-bold text-[#1A0F0D] mb-2">100%</p>
-                        <p class="text-[10px] text-[#A68966] uppercase tracking-widest font-bold">Transparency</p>
+                        <p class="text-5xl font-cinzel font-bold text-[#1A0F0D] mb-3">100%</p>
+                        <p class="text-[11px] text-[#A68966] uppercase tracking-widest font-bold">Transparency</p>
                     </div>
                     <div>
-                        <p class="text-4xl font-cinzel font-bold text-[#1A0F0D] mb-2">4+</p>
-                        <p class="text-[10px] text-[#A68966] uppercase tracking-widest font-bold">States Presence</p>
+                        <p class="text-5xl font-cinzel font-bold text-[#1A0F0D] mb-3">4+</p>
+                        <p class="text-[11px] text-[#A68966] uppercase tracking-widest font-bold">States Presence</p>
                     </div>
                     <div>
-                        <p class="text-4xl font-cinzel font-bold text-[#1A0F0D] mb-2">15Y</p>
-                        <p class="text-[10px] text-[#A68966] uppercase tracking-widest font-bold">Legal Mastery</p>
+                        <p class="text-5xl font-cinzel font-bold text-[#1A0F0D] mb-3">15Y</p>
+                        <p class="text-[11px] text-[#A68966] uppercase tracking-widest font-bold">Legal Mastery</p>
                     </div>
                     <div>
-                        <p class="text-4xl font-cinzel font-bold text-[#1A0F0D] mb-2">FIXED</p>
-                        <p class="text-[10px] text-[#A68966] uppercase tracking-widest font-bold">TAT Execution</p>
+                        <p class="text-5xl font-cinzel font-bold text-[#1A0F0D] mb-3">FIXED</p>
+                        <p class="text-[11px] text-[#A68966] uppercase tracking-widest font-bold">TAT Execution</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Grid - Engaging Animations -->
+    <!-- Services Grid -->
     <section id="services" class="py-48 px-8 lg:px-24 bg-[#1A0F0D] text-white">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-32 gap-12">
                 <div class="reveal">
                     <span class="text-[11px] font-sans font-bold uppercase tracking-[0.6em] text-[#A68966] mb-8 block">02 / Verticals</span>
-                    <h2 class="text-5xl md:text-7xl font-bold font-cinzel">Practice Areas.</h2>
+                    <h2 class="text-5xl md:text-8xl font-bold font-cinzel text-white">Practice Areas.</h2>
                 </div>
-                <p class="text-white/40 max-w-sm text-sm uppercase tracking-widest leading-loose text-left reveal">Comprehensive solutions from corporate due diligence to state-level litigation.</p>
+                <p class="text-white/70 max-w-sm text-sm uppercase tracking-widest leading-loose text-left reveal">Comprehensive solutions from corporate due diligence to state-level litigation.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                 <!-- Group 1 -->
                 <div class="service-card p-12 transition-all group reveal">
-                    <span class="text-[#A68966] font-cinzel text-2xl font-bold mb-12 block">01</span>
+                    <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">01</span>
                     <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Corporate Finance</h3>
-                    <ul class="space-y-6 text-white/40 font-sans text-xs uppercase tracking-widest leading-relaxed text-left">
-                        <li>Legal Due Diligence</li>
-                        <li>SARFAESI Enforcement</li>
-                        <li>Sec 9 & 17 Execution</li>
+                    <ul class="space-y-6 text-white/60 font-sans text-xs uppercase tracking-widest leading-relaxed text-left">
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Legal Due Diligence</li>
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> SARFAESI Enforcement</li>
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Sec 9 & 17 Execution</li>
                     </ul>
                 </div>
                 <!-- Group 2 -->
                 <div class="service-card p-12 transition-all group reveal">
-                    <span class="text-[#A68966] font-cinzel text-2xl font-bold mb-12 block">02</span>
+                    <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">02</span>
                     <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Litigation</h3>
-                    <ul class="space-y-6 text-white/40 font-sans text-xs uppercase tracking-widest leading-relaxed text-left">
-                        <li>High Court Advocacy</li>
-                        <li>Criminal & Civil Trial</li>
-                        <li>138 NI Act Matters</li>
+                    <ul class="space-y-6 text-white/60 font-sans text-xs uppercase tracking-widest leading-relaxed text-left">
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> High Court Advocacy</li>
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Criminal & Civil Trial</li>
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> 138 NI Act Matters</li>
                     </ul>
                 </div>
                 <!-- Group 3 -->
                 <div class="service-card p-12 transition-all group reveal">
-                    <span class="text-[#A68966] font-cinzel text-2xl font-bold mb-12 block">03</span>
+                    <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">03</span>
                     <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Industrial</h3>
-                    <ul class="space-y-6 text-white/40 font-sans text-xs uppercase tracking-widest leading-relaxed text-left">
-                        <li>Mining Law Matters</li>
-                        <li>Land Acquisition</li>
-                        <li>Labour Disputes</li>
+                    <ul class="space-y-6 text-white/60 font-sans text-xs uppercase tracking-widest leading-relaxed text-left">
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Mining Law Matters</li>
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Land Acquisition</li>
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Labour Disputes</li>
                     </ul>
                 </div>
                 <!-- Group 4 -->
                 <div class="service-card p-12 transition-all group reveal">
-                    <span class="text-[#A68966] font-cinzel text-2xl font-bold mb-12 block">04</span>
+                    <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">04</span>
                     <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Private Equity</h3>
-                    <ul class="space-y-6 text-white/40 font-sans text-xs uppercase tracking-widest leading-relaxed text-left">
-                        <li>Insurance Claims</li>
-                        <li>Matrimonial Dispute</li>
-                        <li>MACT Settlements</li>
+                    <ul class="space-y-6 text-white/60 font-sans text-xs uppercase tracking-widest leading-relaxed text-left">
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Insurance Claims</li>
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Matrimonial Dispute</li>
+                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> MACT Settlements</li>
                     </ul>
                 </div>
             </div>
@@ -366,10 +345,10 @@
         <div class="max-w-7xl mx-auto">
             <div class="mb-32 reveal">
                 <span class="text-[11px] font-sans font-bold uppercase tracking-[0.6em] text-[#A68966] mb-8 block text-center">03 / Counsel</span>
-                <h2 class="text-5xl md:text-8xl font-bold text-[#1A0F0D] font-cinzel text-center">The Panel.</h2>
+                <h2 class="text-6xl md:text-9xl font-bold text-[#1A0F0D] font-cinzel text-center">The Panel.</h2>
             </div>
             
-            <div id="teamGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-24 max-w-6xl mx-auto">
+            <div id="teamGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-32 max-w-6xl mx-auto">
                 <!-- Injected via JS -->
             </div>
         </div>
@@ -377,12 +356,12 @@
 
     <!-- Continuous Marquee Section -->
     <section id="trust" class="marquee-wrapper">
-        <div class="max-w-7xl mx-auto px-8 mb-24 reveal">
-            <h2 class="text-3xl md:text-5xl text-[#FFFFFF] font-cinzel font-bold text-center uppercase tracking-[0.2em]">Institutional Trust Matrix</h2>
-            <div class="w-20 h-1 bg-[#A68966] mx-auto mt-8"></div>
+        <div class="max-w-7xl mx-auto px-8 mb-24 reveal sticky top-0">
+            <h2 class="text-3xl md:text-6xl text-white font-cinzel font-bold text-center uppercase tracking-[0.3em]">Institutional Trust</h2>
+            <div class="w-24 h-1 bg-[#A68966] mx-auto mt-8"></div>
         </div>
         <div class="marquee-track" id="marqueeTrack">
-            <!-- Injected via JS with multi-line splits -->
+            <!-- Injected via JS -->
         </div>
     </section>
 
@@ -390,27 +369,27 @@
     <section class="py-48 px-8 lg:px-24 bg-[#050505]">
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-24 reveal">
-                <h2 class="text-5xl md:text-7xl text-white font-bold mb-8 font-cinzel tracking-tight">Secure Counsel.</h2>
-                <div class="w-16 h-px bg-[#A68966] mx-auto mb-8"></div>
-                <p class="font-sans text-white/40 text-[10px] tracking-[0.6em] uppercase font-bold text-center">Privileged Intake Protocol</p>
+                <h2 class="text-5xl md:text-8xl text-white font-bold mb-10 font-cinzel tracking-tight">Secure Counsel.</h2>
+                <div class="w-20 h-px bg-[#A68966] mx-auto mb-10"></div>
+                <p class="font-sans text-white/70 text-[11px] tracking-[0.8em] uppercase font-bold text-center">Privileged Intake Protocol</p>
             </div>
             
-            <div class="space-y-16 reveal">
+            <div class="space-y-20 reveal">
                 <div class="group">
-                    <label class="text-[10px] font-sans font-bold uppercase tracking-[0.5em] text-[#A68966] mb-8 block text-left">Matter Designation</label>
-                    <div class="relative custom-select-trigger py-6">
-                        <select id="matterSelect" class="w-full bg-transparent text-white font-cinzel text-2xl focus:outline-none cursor-pointer appearance-none">
+                    <label class="text-[11px] font-sans font-bold uppercase tracking-[0.5em] text-[#A68966] mb-10 block text-left">Matter Designation</label>
+                    <div class="relative custom-select-trigger py-8">
+                        <select id="matterSelect" class="w-full bg-transparent text-white font-cinzel text-3xl focus:outline-none cursor-pointer appearance-none">
                             <option value="" disabled selected>Select Practice Scope</option>
                             <option value="corporate" class="bg-[#050505]">Corporate Due Diligence & M&A</option>
                             <option value="litigation" class="bg-[#050505]">High Court Litigation Syndicate</option>
                             <option value="mining" class="bg-[#050505]">Industrial Mining & Land Portfolio</option>
                             <option value="enforcement" class="bg-[#050505]">SARFAESI & Asset Recovery</option>
                         </select>
-                        <i data-lucide="chevron-down" class="absolute right-0 top-1/2 -translate-y-1/2 text-[#A68966]"></i>
+                        <i data-lucide="chevron-down" class="absolute right-0 top-1/2 -translate-y-1/2 text-[#A68966] w-8 h-8"></i>
                     </div>
                 </div>
 
-                <button class="w-full py-10 bg-[#A68966] text-[#1A0F0D] font-cinzel font-bold uppercase tracking-[0.4em] text-xs transition-all hover:bg-white hover:tracking-[0.6em] shadow-2xl">
+                <button class="w-full py-12 bg-[#A68966] text-[#1A0F0D] font-cinzel font-bold uppercase tracking-[0.4em] text-sm transition-all hover:bg-white hover:tracking-[0.6em] shadow-2xl">
                     Initiate Consultation
                 </button>
             </div>
@@ -418,25 +397,25 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#1A0F0D] py-24 px-8 border-t border-white/5 text-center">
-        <div class="flex flex-col items-center gap-12">
-            <i data-lucide="scale" class="w-10 h-10 text-[#A68966]"></i>
-            <div class="flex flex-col gap-4">
-                <span class="text-2xl font-bold text-[#A68966] font-cinzel tracking-widest">VATSYAYAN & ASSOCIATES</span>
-                <p class="text-[11px] text-white/80 uppercase tracking-[0.5em] leading-relaxed font-sans max-w-lg">
+    <footer class="bg-[#1A0F0D] py-32 px-8 border-t border-white/10 text-center">
+        <div class="flex flex-col items-center gap-16">
+            <i data-lucide="scale" class="w-12 h-12 text-[#A68966]"></i>
+            <div class="flex flex-col gap-6">
+                <span class="text-3xl font-bold text-[#A68966] font-cinzel tracking-[0.3em]">VATSYAYAN & ASSOCIATES</span>
+                <p class="text-[12px] text-white uppercase tracking-[0.6em] leading-relaxed font-sans max-w-xl">
                     Professionally Managed Legal Syndicate <br> Delivering Excellence Through Liaison and Strategic Insight
                 </p>
             </div>
-            <div class="w-12 h-px bg-white/5"></div>
-            <p class="text-[9px] text-white/40 uppercase tracking-[0.8em]">© 2024. Proprietary Pitch Artifact.</p>
+            <div class="w-20 h-px bg-white/10"></div>
+            <p class="text-[10px] text-white/40 uppercase tracking-[1em]">© 2024. Proprietary Pitch Artifact.</p>
         </div>
     </footer>
 
     <!-- Profile Modal -->
-    <div id="profileModal" class="p-4 sm:p-8">
+    <div id="profileModal">
         <div class="modal-content reveal active">
-            <button id="closeModal" class="fixed top-8 right-8 z-[2100] p-4 bg-[#A68966] text-[#1A0F0D] rounded-full hover:scale-110 transition-transform shadow-2xl">
-                <i data-lucide="x"></i>
+            <button id="closeModal" class="fixed top-8 right-8 z-[2100] p-5 bg-[#A68966] text-[#1A0F0D] rounded-full hover:scale-110 transition-transform shadow-2xl">
+                <i data-lucide="x" class="w-6 h-6"></i>
             </button>
             <div id="modalBody" class="flex flex-col lg:flex-row min-h-full">
                 <!-- Injected via JS -->
@@ -452,8 +431,8 @@
                 creds: "B.A.LL.B (Bangalore University)",
                 img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000",
                 summary: "15 years of industry mastery. Formerly Senior Legal Manager for steel and mining giants.",
-                detailed: "Founder of Vatsyayan & Associates. Kandarp has completed a 5-year LLB from Bangalore University in 2009. He has worked with corporate giants and greenfield projects in senior roles. He specializes in corporate finance, mining law, and SARFAESI enforcement. His ideology revolves around pinpoint legal solutions that protect corporate profitability.",
-                liaison: "Ultimate administrative liaison with local Police and Government authorities."
+                detailed: "Founder of Vatsyayan & Associates. Kandarp completed his 5-year LLB from Bangalore University in 2009. He has spearheaded legal portfolios for greenfield projects and global conglomerates. He specializes in corporate finance, mining law, and SARFAESI enforcement.",
+                liaison: "Unparalleled administrative liaison with local Police and Government authorities."
             },
             {
                 name: "Ms. Ayushi Raj",
@@ -461,8 +440,8 @@
                 creds: "Advocate, Jharkhand High Court",
                 img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000",
                 summary: "Seasoned professional handling all Institutional Clients for the firm.",
-                detailed: "Ayushi Raj is committed to process improvement, team development, and ethical standards. She has the ability to work under tight deadlines within risk frameworks, providing quick solutions for smooth work closure.",
-                liaison: "Strategic lead for Corporate Client Management."
+                detailed: "Ayushi Raj is committed to operational excellence and ethical standards. She manages institutional risk frameworks and ensures smooth closure of high-stakes corporate assignments under rigorous timelines.",
+                liaison: "Strategic lead for Corporate Client Relationship Management."
             },
             {
                 name: "Mr. Amit Kumar",
@@ -470,8 +449,8 @@
                 creds: "B.A.LL.B (Symbiosis Pune)",
                 img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=1000",
                 summary: "Expert litigation counsel with a 12-year track record in criminal and consumer law.",
-                detailed: "A graduate from one of the most renowned law institutes (Symbiosis Pune). Amit handles critical matters especially related to Criminal Defense, Matrimonial disputes, and MACT cases. He is known for delivering results in record time.",
-                liaison: "Lead Counsel for District and Subordinate Court Litigation."
+                detailed: "A graduate of Symbiosis Pune, Amit handles critical litigation matters including Criminal Defense, Matrimonial disputes, and MACT cases. He is recognized for securing favorable outcomes in record turnaround times.",
+                liaison: "Lead Counsel for Subordinate and Appellate Court Litigation."
             },
             {
                 name: "Mr. Himanshu Singh Chauhan",
@@ -479,82 +458,73 @@
                 creds: "Advocate, Rajasthan High Court",
                 img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1000",
                 summary: "Brings a powerful blend of legal proficiency and strategic business acumen to Rajasthan.",
-                detailed: "Specializing in consumer and cyber complaints, drafting, and documentation. Himanshu is a skilled negotiator navigating complex legal landscapes with meticulous attention to detail.",
-                liaison: "Primary Strategic Voice for Rajasthan Legal Ecosystem."
+                detailed: "Specializing in cyber complaints, precise drafting, and documentation. Himanshu is a skilled negotiator in Rajasthan's legal landscape, navigating complex corporate ecosystems with meticulous precision.",
+                liaison: "Primary Strategic Voice for Rajasthan Regional Operations."
             }
         ];
 
-        const partners = ["ICICI BANK", "TATA CAPITAL", "ADITYA BIRLA", "JANA SMALL FINANCE", "BANDHAN BANK", "AADHAR HOUSING", "CHOLAMANDALAM", "AYE FINANCE", "BAJAJ FINSERV", "POSHN"];
+        const partners = ["ICICI BANK", "TATA CAPITAL", "ADITYA BIRLA", "JANA SMALL", "BANDHAN BANK", "AADHAR HOUSING", "CHOLAMANDALAM", "AYE FINANCE", "BAJAJ FINSERV", "POSHN TECHNOLOGY"];
 
-        // Init Icons
         lucide.createIcons();
 
-        // Reveal Logic
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
 
-        // Mobile Menu Logic
+        // Mobile Menu
         const menuTrigger = document.getElementById('menuTrigger');
         const mobileMenu = document.getElementById('mobileMenu');
         const closeMenu = document.getElementById('closeMenu');
-        const menuLinks = document.querySelectorAll('.menu-link');
-
         menuTrigger.onclick = () => mobileMenu.classList.add('active');
         closeMenu.onclick = () => mobileMenu.classList.remove('active');
-        menuLinks.forEach(link => {
+        document.querySelectorAll('.menu-link').forEach(link => {
             link.onclick = () => mobileMenu.classList.remove('active');
         });
 
-        // Smooth Scroll Logo Link
         document.getElementById('logoLink').onclick = (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        // Sticky Navbar Scroll Effect
+        // Header Scroll
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            const logoText = nav.querySelector('.font-sans');
-            if (window.scrollY > 100) {
-                nav.classList.add('bg-[#1A0F0D]/90', 'py-4', 'shadow-2xl');
+            const logoSubtext = nav.querySelector('.font-sans');
+            if (window.scrollY > 80) {
+                nav.classList.add('bg-[#1A0F0D]/95', 'py-4', 'shadow-2xl');
                 nav.classList.remove('bg-transparent', 'py-6');
-                logoText.classList.remove('text-white');
-                logoText.classList.add('text-[#A68966]');
+                logoSubtext.classList.remove('text-white');
+                logoSubtext.classList.add('text-[#A68966]');
             } else {
                 nav.classList.add('bg-transparent', 'py-6');
-                nav.classList.remove('bg-[#1A0F0D]/90', 'py-4', 'shadow-2xl');
-                logoText.classList.add('text-white');
-                logoText.classList.remove('text-[#A68966]');
+                nav.classList.remove('bg-[#1A0F0D]/95', 'py-4', 'shadow-2xl');
+                logoSubtext.classList.add('text-white');
+                logoSubtext.classList.remove('text-[#A68966]');
             }
         });
 
-        // Team Grid Injection
+        // Team Injection
         const teamGrid = document.getElementById('teamGrid');
-        teamData.forEach((m, i) => {
+        teamData.forEach((m) => {
             const card = document.createElement('div');
             card.className = "group cursor-pointer reveal flex flex-col";
             card.innerHTML = `
-                <div class="relative overflow-hidden aspect-[16/10] mb-8 border border-black/5 bg-white">
-                    <img src="${m.img}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="${m.name}">
-                    <div class="absolute inset-0 bg-[#1A0F0D]/10 group-hover:opacity-0 transition-opacity"></div>
+                <div class="relative overflow-hidden aspect-[3/4] mb-10 border border-black/5 bg-white">
+                    <img src="${m.img}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" alt="${m.name}">
+                    <div class="absolute inset-0 bg-[#1A0F0D]/20 group-hover:opacity-0 transition-opacity"></div>
                 </div>
                 <div class="flex flex-col text-left">
-                    <span class="text-[9px] text-[#A68966] font-bold uppercase tracking-widest mb-2 block">${m.role}</span>
-                    <h3 class="text-3xl font-cinzel font-bold text-[#1A0F0D] mb-4">${m.name}</h3>
-                    <p class="text-sm font-light text-[#4A4744] max-w-sm leading-relaxed mb-6">${m.summary}</p>
-                    <div class="flex items-center gap-4 text-[9px] font-bold uppercase tracking-[0.2em] text-[#A68966] group-hover:text-[#1A0F0D] transition-colors">
-                        <span>VIEW COUNSEL PROFILE</span>
-                        <div class="w-8 h-8 flex items-center justify-center border border-[#A68966]/30 group-hover:bg-[#A68966] group-hover:border-[#A68966] group-hover:text-white transition-all">
-                            <i data-lucide="plus" class="w-3 h-3"></i>
+                    <span class="text-[10px] text-[#A68966] font-bold uppercase tracking-[0.4em] mb-4 block">${m.role}</span>
+                    <h3 class="text-4xl font-cinzel font-bold text-[#1A0F0D] mb-6">${m.name}</h3>
+                    <p class="text-base font-light text-stone-600 max-w-sm leading-relaxed mb-10 italic">"${m.summary}"</p>
+                    <div class="flex items-center gap-5 text-[10px] font-bold uppercase tracking-[0.3em] text-[#A68966] group-hover:text-[#1A0F0D] transition-colors">
+                        <span>DETAILED COUNSEL PROFILE</span>
+                        <div class="w-10 h-10 flex items-center justify-center border border-[#A68966]/40 group-hover:bg-[#A68966] group-hover:border-[#A68966] group-hover:text-white transition-all">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
                         </div>
                     </div>
                 </div>
@@ -563,7 +533,7 @@
             teamGrid.appendChild(card);
         });
 
-        // Marquee Injection - Multi-line Names
+        // Marquee Injection
         const marqueeTrack = document.getElementById('marqueeTrack');
         const marqueeContent = partners.map(p => {
             const parts = p.split(' ');
@@ -577,43 +547,41 @@
         }).join('');
         marqueeTrack.innerHTML = marqueeContent + marqueeContent;
 
-        // Re-observe injected content
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
         lucide.createIcons();
 
-        // Modal Logic
+        // Modal
         const modal = document.getElementById('profileModal');
         const modalBody = document.getElementById('modalBody');
-
         function openProfile(m) {
             modalBody.innerHTML = `
-                <div class="lg:w-1/2 bg-[#050505] p-12 flex flex-col justify-end min-h-[500px] lg:min-h-auto relative overflow-hidden">
-                    <img src="${m.img}" class="absolute inset-0 w-full h-full object-cover opacity-60 grayscale">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent"></div>
+                <div class="lg:w-1/2 bg-[#050505] p-12 flex flex-col justify-end min-h-[60vh] lg:min-h-auto relative overflow-hidden">
+                    <img src="${m.img}" class="absolute inset-0 w-full h-full object-cover opacity-70 grayscale">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30"></div>
                     <div class="relative z-10 text-left">
-                        <span class="text-[10px] text-[#A68966] font-bold uppercase tracking-[0.5em] mb-6 block">Counsel Profile</span>
-                        <h2 class="text-5xl lg:text-7xl font-cinzel font-bold text-white mb-4 leading-none">${m.name}</h2>
-                        <p class="text-[#A68966] font-sans text-sm uppercase tracking-widest font-bold italic opacity-80">${m.role}</p>
+                        <span class="text-[11px] text-[#A68966] font-bold uppercase tracking-[0.6em] mb-6 block">Counsel Bio</span>
+                        <h2 class="text-6xl lg:text-8xl font-cinzel font-bold text-white mb-6 leading-none tracking-tighter">${m.name}</h2>
+                        <p class="text-[#A68966] font-sans text-sm uppercase tracking-[0.4em] font-bold italic opacity-90">${m.role}</p>
                     </div>
                 </div>
                 <div class="lg:w-1/2 p-12 lg:p-24 flex flex-col justify-center text-left">
-                    <div class="mb-16">
-                        <p class="text-[10px] font-bold uppercase tracking-[0.5em] text-[#A68966] mb-8">Professional History</p>
-                        <p class="text-2xl font-light leading-relaxed text-[#1A0F0D] font-sans">${m.detailed}</p>
+                    <div class="mb-20">
+                        <p class="text-[11px] font-bold uppercase tracking-[0.6em] text-[#A68966] mb-10">Mandate & History</p>
+                        <p class="text-3xl font-light leading-relaxed text-[#1A0F0D] font-serif">${m.detailed}</p>
                     </div>
-                    <div class="space-y-12">
-                        <div class="flex gap-8">
-                            <i data-lucide="award" class="text-[#A68966] shrink-0 mt-1"></i>
+                    <div class="space-y-16">
+                        <div class="flex gap-10">
+                            <i data-lucide="award" class="text-[#A68966] shrink-0 w-8 h-8"></i>
                             <div>
-                                <p class="text-[10px] font-bold uppercase tracking-widest text-black/30 mb-2">Qualifications</p>
-                                <p class="text-sm font-semibold font-sans">${m.creds}</p>
+                                <p class="text-[11px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-4">Qualifications</p>
+                                <p class="text-lg font-semibold font-sans text-stone-900">${m.creds}</p>
                             </div>
                         </div>
-                        <div class="flex gap-8">
-                            <i data-lucide="link" class="text-[#A68966] shrink-0 mt-1"></i>
+                        <div class="flex gap-10">
+                            <i data-lucide="shield" class="text-[#A68966] shrink-0 w-8 h-8"></i>
                             <div>
-                                <p class="text-[10px] font-bold uppercase tracking-widest text-black/30 mb-2">Liaison Capability</p>
-                                <p class="text-sm font-semibold font-sans italic">"${m.liaison}"</p>
+                                <p class="text-[11px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-4">Core Competency</p>
+                                <p class="text-lg font-semibold font-sans italic text-[#1A0F0D]">"${m.liaison}"</p>
                             </div>
                         </div>
                     </div>
@@ -629,28 +597,25 @@
             document.body.style.overflow = 'auto';
         };
 
-        // Theater-like Loading Sequence
+        // Loading Screen
         window.addEventListener('load', () => {
             const loadingBar = document.getElementById('loadingBar');
             const loadingText = document.getElementById('loadingText');
             
-            // Progressive fill
             setTimeout(() => {
-                loadingBar.style.transition = 'width 2s cubic-bezier(0.4, 0, 0.2, 1)';
+                loadingBar.style.transition = 'width 2.8s cubic-bezier(0.5, 0, 0.3, 1)';
                 loadingBar.style.width = '100%';
-            }, 100);
+            }, 200);
 
-            // Text reveal
             setTimeout(() => {
                 loadingText.style.transform = 'translateY(0)';
-            }, 800);
+            }, 1200);
 
-            // Final curtain lift
             setTimeout(() => {
                 const ls = document.getElementById('loadingScreen');
                 ls.style.opacity = '0';
-                setTimeout(() => ls.style.display = 'none', 1000);
-            }, 2800);
+                setTimeout(() => ls.style.display = 'none', 1200);
+            }, 3800);
         });
     </script>
 </body>
