@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vatsyayan & Associates | Institutional Counsel</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
@@ -14,41 +14,47 @@
             --brass: #A68966;
             --parchment: #F9F7F4;
             --gold: #D4AF37;
-            --text-main: #1A0F0D;
-            --text-muted: #57534E;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--parchment);
-            color: var(--text-main);
+        * { box-sizing: border-box; }
+
+        html, body {
+            max-width: 100%;
             overflow-x: hidden;
+            position: relative;
+            background-color: var(--parchment);
+            color: #000000;
+            font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
         }
 
         .font-cinzel { font-family: 'Cinzel', serif; }
         
-        /* Sticky Header with Backdrop Blur */
+        /* Fixed Navbar Protection */
         nav {
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
         }
 
-        /* Fixed Heading and Scrollable Track for Partners */
+        /* Partners Section - Stabilized Scroll */
         .trust-section {
             background: var(--ebony);
             padding: 8rem 0;
-            border-top: 1px solid rgba(166, 137, 102, 0.3);
-            border-bottom: 1px solid rgba(166, 137, 102, 0.3);
+            border-top: 1px solid rgba(166, 137, 102, 0.4);
+            border-bottom: 1px solid rgba(166, 137, 102, 0.4);
+            width: 100%;
         }
 
         .marquee-wrapper {
-            overflow-x: auto;
-            scrollbar-width: none;
-            cursor: grab;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
         }
-        .marquee-wrapper::-webkit-scrollbar { display: none; }
 
         .marquee-track {
             display: flex;
@@ -66,7 +72,7 @@
             font-size: 1.25rem;
             font-weight: 700;
             color: #FFFFFF; 
-            padding: 0 1.5rem; /* Tighter gap for mobile */
+            padding: 0 1.5rem;
             white-space: nowrap;
             letter-spacing: 0.1em;
             display: flex;
@@ -79,7 +85,7 @@
         }
         .marquee-item span { color: var(--brass); font-size: 0.8rem; font-weight: 400; margin-top: 0.1rem; }
 
-        /* Engaging Animations */
+        /* Staggered Reveal Animations */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -94,7 +100,7 @@
         /* Card Textures */
         .service-card {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(166, 137, 102, 0.3);
+            border: 1px solid rgba(166, 137, 102, 0.35);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -105,14 +111,14 @@
             box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.7);
         }
 
-        /* Profile Modal */
+        /* Profile Modal Enhanced Contrast */
         #profileModal {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 9999;
-            background: rgba(5, 5, 5, 0.99);
-            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(25px);
             align-items: center;
             justify-content: center;
             padding: 0;
@@ -123,12 +129,13 @@
             background: var(--parchment);
             width: 100%;
             max-width: 1200px;
-            height: 100vh;
+            height: 100%;
             overflow-y: auto;
             position: relative;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
         }
         @media (min-width: 1024px) {
-            .modal-container { height: auto; max-height: 90vh; }
+            .modal-container { height: 90vh; }
         }
 
         /* Mobile Menu */
@@ -147,6 +154,12 @@
             padding: 4rem;
         }
         #mobileMenu.active { right: 0; }
+
+        /* Matter Select Placeholder and Sizing */
+        #matterSelect {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
         @media (min-width: 1024px) {
             .hero-grid {
@@ -175,7 +188,7 @@
     </div>
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-[1400] px-8 py-6 flex justify-between items-center bg-transparent">
+    <nav id="navbar" class="z-[1400] px-8 py-6 flex justify-between items-center bg-transparent">
         <a href="#" id="logoLink" class="flex items-center gap-4 group">
             <i data-lucide="scale" class="w-8 h-8 text-[#A68966]"></i>
             <div class="flex flex-col text-left">
@@ -222,7 +235,7 @@
                     Absolute <br>
                     <span class="text-[#A68966]">Liaison.</span>
                 </h1>
-                <p class="font-sans text-xl text-white font-light max-w-xl mb-16 leading-relaxed text-left opacity-90">
+                <p class="font-sans text-xl text-white font-light max-w-xl mb-16 leading-relaxed text-left opacity-100 font-semibold">
                     Transitioning the legal profession from individual performance to a powerhouse corporate ecosystem. 15 Years of Strategic Excellence in Institutional Advocacy.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-10 items-start sm:items-center">
@@ -234,14 +247,14 @@
                             <span class="text-[#A68966] font-cinzel text-4xl font-bold">15+</span>
                             <span class="text-[10px] text-white uppercase tracking-widest leading-tight font-bold">Years of <br> Industry Mastery</span>
                         </div>
-                        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[10px] text-[#A68966] font-bold uppercase tracking-[0.3em]">
-                            <span>Jharkhand</span>
+                        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[10px] text-white font-bold uppercase tracking-[0.3em]">
+                            <span class="text-[#A68966]">Jharkhand</span>
                             <span class="text-white/40">•</span>
-                            <span>Bihar</span>
+                            <span class="text-[#A68966]">Bihar</span>
                             <span class="text-white/40">•</span>
-                            <span>UP</span>
+                            <span class="text-[#A68966]">UP</span>
                             <span class="text-white/40">•</span>
-                            <span>Rajasthan</span>
+                            <span class="text-[#A68966]">Rajasthan</span>
                         </div>
                     </div>
                 </div>
@@ -264,14 +277,14 @@
                     Beyond the <br> <span class="text-[#A68966] italic">Individual.</span>
                 </h2>
                 <div class="w-24 h-px bg-black/20 mb-12"></div>
-                <p class="font-sans text-[#1A0F0D] leading-relaxed text-2xl font-light text-left">
+                <p class="font-sans text-[#1A0F0D] leading-relaxed text-2xl font-light text-left font-semibold">
                     The legal profession is by-and-large confined to individuals who depend on their individual skills. We aim to change that. Vatsyayan & Associates is a professionally managed organization that delivers end-to-end legal solutions under one roof.
                 </p>
             </div>
             <div class="lg:w-1/2 flex flex-col justify-end gap-16 reveal">
                 <div class="bg-[#F9F7F4] p-12 border-l-4 border-[#A68966]">
                     <i data-lucide="shield-check" class="w-14 h-14 text-[#A68966] mb-8"></i>
-                    <p class="text-xl font-light italic leading-relaxed text-left text-black">"Teamwork is at the heart of our philosophy. Our team has a comprehensive understanding of the Indian Legal system and expertise in superb liaison to take a step ahead."</p>
+                    <p class="text-xl font-bold italic leading-relaxed text-left text-black">"Teamwork is at the heart of our philosophy. Our team has a comprehensive understanding of the Indian Legal system and expertise in superb liaison to take a step ahead."</p>
                 </div>
                 <div class="grid grid-cols-2 gap-y-16 gap-x-10">
                     <div>
@@ -295,7 +308,7 @@
         </div>
     </section>
 
-    <!-- Services Grid -->
+    <!-- Services Grid - Staggered Scroll Animations Restored -->
     <section id="services" class="py-48 px-8 lg:px-24 bg-[#1A0F0D] text-white">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-32 gap-12">
@@ -303,45 +316,45 @@
                     <span class="text-[11px] font-sans font-bold uppercase tracking-[0.6em] text-[#A68966] mb-8 block text-left">02 / Verticals</span>
                     <h2 class="text-5xl md:text-8xl font-bold font-cinzel text-white text-left">Practice Areas.</h2>
                 </div>
-                <p class="text-white max-w-sm text-sm uppercase tracking-widest leading-loose text-left reveal opacity-80">Comprehensive solutions from corporate due diligence to state-level litigation.</p>
+                <p class="text-white max-w-sm text-sm uppercase tracking-widest leading-loose text-left reveal font-bold">Comprehensive solutions from corporate due diligence to state-level litigation.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                 <!-- Group 1 -->
-                <div class="service-card p-12 transition-all group reveal">
+                <div class="service-card p-12 transition-all group reveal" style="transition-delay: 100ms;">
                     <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">01</span>
                     <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Corporate Finance</h3>
-                    <ul class="space-y-6 text-white font-sans text-[10px] uppercase tracking-widest leading-relaxed text-left opacity-70">
+                    <ul class="space-y-6 text-white font-sans text-[11px] uppercase tracking-widest leading-relaxed text-left font-bold">
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Legal Due Diligence</li>
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> SARFAESI Enforcement</li>
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Sec 9 & 17 Execution</li>
                     </ul>
                 </div>
                 <!-- Group 2 -->
-                <div class="service-card p-12 transition-all group reveal">
+                <div class="service-card p-12 transition-all group reveal" style="transition-delay: 200ms;">
                     <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">02</span>
                     <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Litigation</h3>
-                    <ul class="space-y-6 text-white font-sans text-[10px] uppercase tracking-widest leading-relaxed text-left opacity-70">
+                    <ul class="space-y-6 text-white font-sans text-[11px] uppercase tracking-widest leading-relaxed text-left font-bold">
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> High Court Advocacy</li>
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Criminal & Civil Trial</li>
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> 138 NI Act Matters</li>
                     </ul>
                 </div>
                 <!-- Group 3 -->
-                <div class="service-card p-12 transition-all group reveal">
+                <div class="service-card p-12 transition-all group reveal" style="transition-delay: 300ms;">
                     <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">03</span>
                     <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Industrial</h3>
-                    <ul class="space-y-6 text-white font-sans text-[10px] uppercase tracking-widest leading-relaxed text-left opacity-70">
+                    <ul class="space-y-6 text-white font-sans text-[11px] uppercase tracking-widest leading-relaxed text-left font-bold">
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Mining Law Matters</li>
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Land Acquisition</li>
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Labour Disputes</li>
                     </ul>
                 </div>
                 <!-- Group 4 -->
-                <div class="service-card p-12 transition-all group reveal">
+                <div class="service-card p-12 transition-all group reveal" style="transition-delay: 400ms;">
                     <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">04</span>
                     <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Private Equity</h3>
-                    <ul class="space-y-6 text-white font-sans text-[10px] uppercase tracking-widest leading-relaxed text-left opacity-70">
+                    <ul class="space-y-6 text-white font-sans text-[11px] uppercase tracking-widest leading-relaxed text-left font-bold">
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Insurance Claims</li>
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Matrimonial Dispute</li>
                         <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> MACT Settlements</li>
@@ -351,7 +364,7 @@
         </div>
     </section>
 
-    <!-- The Panel Section -->
+    <!-- The Panel Section - Restored Vertical Profiles -->
     <section id="panel" class="py-48 px-8 lg:px-24 bg-[#F9F7F4]">
         <div class="max-w-7xl mx-auto">
             <div class="mb-32 reveal">
@@ -365,7 +378,7 @@
         </div>
     </section>
 
-    <!-- Continuous Marquee Section -->
+    <!-- Continuous Marquee Section - Fixed Header -->
     <section id="trust" class="trust-section">
         <div class="max-w-7xl mx-auto px-8 mb-24 reveal">
             <h2 class="text-3xl md:text-6xl text-white font-cinzel font-bold text-center uppercase tracking-[0.3em]">Institutional Trust</h2>
@@ -378,31 +391,31 @@
         </div>
     </section>
 
-    <!-- High-Value Selection CTA -->
+    <!-- High-Value Selection CTA - Optimized Sizes -->
     <section class="py-48 px-8 lg:px-24 bg-[#050505]">
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-24 reveal">
-                <h2 class="text-5xl md:text-7xl text-white font-bold mb-10 font-cinzel tracking-tight text-center">Secure Counsel.</h2>
+                <h2 class="text-5xl md:text-8xl text-white font-bold mb-10 font-cinzel tracking-tight text-center">Secure Counsel.</h2>
                 <div class="w-20 h-px bg-[#A68966] mx-auto mb-10"></div>
-                <p class="font-sans text-white text-[11px] tracking-[0.8em] uppercase font-bold text-center opacity-80">Privileged Intake Protocol</p>
+                <p class="font-sans text-white text-[11px] tracking-[0.8em] uppercase font-bold text-center">Privileged Intake Protocol</p>
             </div>
             
             <div class="space-y-16 reveal">
                 <div class="group">
-                    <label class="text-[11px] font-sans font-bold uppercase tracking-[0.5em] text-[#A68966] mb-8 block text-left">Matter Designation</label>
-                    <div class="relative custom-select-trigger py-6">
-                        <select id="matterSelect" class="w-full bg-transparent text-white font-cinzel text-lg md:text-2xl focus:outline-none cursor-pointer appearance-none leading-tight">
+                    <label class="text-[11px] font-sans font-bold uppercase tracking-[0.5em] text-[#A68966] mb-10 block text-left">Matter Designation</label>
+                    <div class="relative border-b border-[#A68966]/40 py-6">
+                        <select id="matterSelect" class="w-full bg-transparent text-white font-cinzel text-lg md:text-xl focus:outline-none cursor-pointer appearance-none leading-tight py-2 pr-10 overflow-hidden">
                             <option value="" disabled selected>Select Practice Scope</option>
                             <option value="corporate" class="bg-[#050505]">Corporate Due Diligence & M&A</option>
                             <option value="litigation" class="bg-[#050505]">High Court Litigation Syndicate</option>
                             <option value="mining" class="bg-[#050505]">Industrial Mining & Land Portfolio</option>
                             <option value="enforcement" class="bg-[#050505]">SARFAESI & Asset Recovery</option>
                         </select>
-                        <i data-lucide="chevron-down" class="absolute right-0 top-1/2 -translate-y-1/2 text-[#A68966] w-6 h-6"></i>
+                        <i data-lucide="chevron-down" class="absolute right-0 top-1/2 -translate-y-1/2 text-[#A68966] w-6 h-6 pointer-events-none"></i>
                     </div>
                 </div>
 
-                <button class="w-full py-8 md:py-10 bg-[#A68966] text-[#1A0F0D] font-cinzel font-bold uppercase tracking-[0.4em] text-[10px] md:text-xs transition-all hover:bg-white hover:tracking-[0.6em] shadow-2xl">
+                <button class="w-full py-10 bg-[#A68966] text-[#1A0F0D] font-cinzel font-bold uppercase tracking-[0.3em] text-[11px] transition-all hover:bg-white hover:tracking-[0.5em] shadow-2xl">
                     Initiate Consultation
                 </button>
             </div>
@@ -420,15 +433,15 @@
                 </p>
             </div>
             <div class="w-20 h-px bg-white/10"></div>
-            <p class="text-[10px] text-white uppercase tracking-[1em] font-bold opacity-60">© 2024. Proprietary Pitch Artifact.</p>
+            <p class="text-[10px] text-white uppercase tracking-[1em] font-bold">© 2024. Proprietary Pitch Artifact.</p>
         </div>
     </footer>
 
-    <!-- Profile Modal -->
+    <!-- Profile Modal - High Contrast Bio -->
     <div id="profileModal">
         <div class="modal-container">
-            <button id="closeModal" class="absolute top-6 right-6 lg:top-10 lg:right-10 z-[10000] p-4 bg-[#A68966] text-[#1A0F0D] rounded-full hover:scale-110 transition-transform shadow-2xl">
-                <i data-lucide="x" class="w-6 h-6"></i>
+            <button id="closeModal" class="absolute top-6 right-6 lg:top-10 lg:right-10 z-[11000] p-4 bg-[#A68966] text-[#1A0F0D] rounded-full hover:scale-110 transition-transform shadow-2xl">
+                <i data-lucide="x" class="w-7 h-7"></i>
             </button>
             <div id="modalBody" class="flex flex-col lg:flex-row min-h-full">
                 <!-- Injected via JS -->
@@ -503,24 +516,22 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        // Header Scroll
+        // Header Scroll - Reinforced Fixed Top
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             const logoSubtext = nav.querySelector('.font-sans');
             if (window.scrollY > 80) {
                 nav.classList.add('bg-[#1A0F0D]/95', 'py-4', 'shadow-2xl');
                 nav.classList.remove('bg-transparent', 'py-6');
-                logoSubtext.classList.remove('text-white');
-                logoSubtext.classList.add('text-[#A68966]');
+                logoSubtext.style.color = '#A68966';
             } else {
                 nav.classList.add('bg-transparent', 'py-6');
                 nav.classList.remove('bg-[#1A0F0D]/95', 'py-4', 'shadow-2xl');
-                logoSubtext.classList.add('text-white');
-                logoSubtext.classList.remove('text-[#A68966]');
+                logoSubtext.style.color = '#FFFFFF';
             }
         });
 
-        // Team Injection
+        // Team Injection - Vertical Aspect Ratio Corrected
         const teamGrid = document.getElementById('teamGrid');
         teamData.forEach((m) => {
             const card = document.createElement('div');
@@ -533,7 +544,7 @@
                 <div class="flex flex-col text-left">
                     <span class="text-[10px] text-[#A68966] font-bold uppercase tracking-[0.4em] mb-4 block">${m.role}</span>
                     <h3 class="text-4xl font-cinzel font-bold text-[#1A0F0D] mb-6">${m.name}</h3>
-                    <p class="text-base font-light text-stone-600 max-w-sm leading-relaxed mb-10 italic text-left">"${m.summary}"</p>
+                    <p class="text-base font-bold text-stone-800 max-w-sm leading-relaxed mb-10 italic text-left">"${m.summary}"</p>
                     <div class="flex items-center gap-5 text-[10px] font-bold uppercase tracking-[0.3em] text-[#A68966] group-hover:text-[#1A0F0D] transition-colors">
                         <span>DETAILED COUNSEL PROFILE</span>
                         <div class="w-10 h-10 flex items-center justify-center border border-[#A68966]/40 group-hover:bg-[#A68966] group-hover:border-[#A68966] group-hover:text-white transition-all">
@@ -563,14 +574,14 @@
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
         lucide.createIcons();
 
-        // Modal
+        // Modal Logic Corrected - High Contrast
         const modal = document.getElementById('profileModal');
         const modalBody = document.getElementById('modalBody');
-        const closeModal = document.getElementById('closeModal');
+        const closeModalBtn = document.getElementById('closeModal');
 
         function openProfile(m) {
             modalBody.innerHTML = `
-                <div class="w-full lg:w-1/2 bg-[#050505] p-12 flex flex-col justify-end min-h-[60vh] lg:min-h-auto relative overflow-hidden">
+                <div class="lg:w-1/2 bg-[#050505] p-12 flex flex-col justify-end min-h-[60vh] lg:min-h-auto relative overflow-hidden">
                     <img src="${m.img}" class="absolute inset-0 w-full h-full object-cover opacity-70 grayscale">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30"></div>
                     <div class="relative z-10 text-left">
@@ -579,24 +590,24 @@
                         <p class="text-[#A68966] font-sans text-sm uppercase tracking-[0.4em] font-bold italic opacity-90">${m.role}</p>
                     </div>
                 </div>
-                <div class="w-full lg:w-1/2 p-12 lg:p-24 flex flex-col justify-center text-left bg-[#F9F7F4]">
+                <div class="lg:w-1/2 p-12 lg:p-24 flex flex-col justify-center text-left bg-[#F9F7F4]">
                     <div class="mb-20">
                         <p class="text-[11px] font-bold uppercase tracking-[0.6em] text-[#A68966] mb-10">Mandate & History</p>
-                        <p class="text-2xl md:text-3xl font-light leading-relaxed text-[#1A0F0D] font-serif">${m.detailed}</p>
+                        <p class="text-2xl md:text-3xl font-bold leading-relaxed text-[#000000] font-serif">${m.detailed}</p>
                     </div>
                     <div class="space-y-16">
                         <div class="flex gap-10">
                             <i data-lucide="award" class="text-[#A68966] shrink-0 w-8 h-8"></i>
                             <div class="text-left">
                                 <p class="text-[11px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-4">Qualifications</p>
-                                <p class="text-lg font-bold font-sans text-black">${m.creds}</p>
+                                <p class="text-lg font-bold font-sans text-[#000000]">${m.creds}</p>
                             </div>
                         </div>
                         <div class="flex gap-10">
                             <i data-lucide="shield" class="text-[#A68966] shrink-0 w-8 h-8"></i>
                             <div class="text-left">
                                 <p class="text-[11px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-4">Core Competency</p>
-                                <p class="text-lg font-bold font-sans italic text-black">"${m.liaison}"</p>
+                                <p class="text-lg font-bold font-sans italic text-[#000000]">"${m.liaison}"</p>
                             </div>
                         </div>
                     </div>
@@ -607,19 +618,14 @@
             lucide.createIcons();
         }
 
-        closeModal.onclick = (e) => {
-            e.stopPropagation();
+        const closeModal = (e) => {
+            if (e) e.stopPropagation();
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         };
 
-        // Click outside modal content to close
-        modal.onclick = (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        };
+        closeModalBtn.onclick = closeModal;
+        modal.onclick = (e) => { if (e.target === modal) closeModal(); };
 
         // Loading Screen
         window.addEventListener('load', () => {
