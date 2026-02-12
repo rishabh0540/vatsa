@@ -1,652 +1,672 @@
 <!DOCTYPE html>
-<html lang="en" class="overflow-x-hidden">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vatsyayan & Associates | Institutional Counsel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vatsayayan | Chambers of Excellence</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Courier+Prime&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         :root {
-            --mahogany: #1A0F0D;
-            --ebony: #050505;
-            --brass: #A68966;
-            --parchment: #F9F7F4;
             --gold: #D4AF37;
+            --dark-brown: #0D0A08; 
+            --rich-brown: #1A1410; 
+            --accent-brown: #2C241E;
+            --paper: #F4F1EA;
+            --typewriter: 'Courier Prime', monospace;
+            --serif-display: 'Playfair Display', serif;
+            --serif-body: 'Lora', serif;
         }
 
-        * { box-sizing: border-box; }
-
-        html, body {
-            max-width: 100%;
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-brown);
+            color: var(--paper);
+            font-family: var(--serif-body);
             overflow-x: hidden;
-            position: relative;
-            background-color: var(--parchment);
-            color: #000000;
-            font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
+            cursor: none;
         }
 
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        
-        /* Fixed Navbar Protection */
-        nav {
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: fixed !important;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-
-        /* Partners Section - Stabilized Scroll */
-        .trust-section {
-            background: var(--ebony);
-            padding: 8rem 0;
-            border-top: 1px solid rgba(166, 137, 102, 0.4);
-            border-bottom: 1px solid rgba(166, 137, 102, 0.4);
-            width: 100%;
-        }
-
-        .marquee-wrapper {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-        }
-
-        .marquee-track {
-            display: flex;
-            width: max-content;
-            animation: marquee 45s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .marquee-item {
-            font-family: 'Cinzel', serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #FFFFFF; 
-            padding: 0 1.5rem;
-            white-space: nowrap;
-            letter-spacing: 0.1em;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            line-height: 1.2;
-        }
-        @media (min-width: 1024px) {
-            .marquee-item { padding: 0 4rem; font-size: 1.75rem; }
-        }
-        .marquee-item span { color: var(--brass); font-size: 0.8rem; font-weight: 400; margin-top: 0.1rem; }
-
-        /* Staggered Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Card Textures */
-        .service-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(166, 137, 102, 0.35);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .service-card:hover {
-            transform: translateY(-12px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--gold);
-            box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.7);
-        }
-
-        /* Profile Modal Enhanced Contrast */
-        #profileModal {
-            display: none;
+        /* Custom Cursor Logic - Desktop Only */
+        #cursor {
             position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.98);
-            backdrop-filter: blur(25px);
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
+            transition: width 0.3s, height 0.3s, background 0.3s;
         }
-        #profileModal.active { display: flex; }
+        #cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+        .cursor-hover #cursor {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+        }
 
-        .modal-container {
-            background: var(--parchment);
+        /* Strict Cursor Suppression for Mobile */
+        @media (max-width: 1024px) {
+            #cursor { display: none !important; }
+            body, html { cursor: auto !important; }
+        }
+
+        /* Grain Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        h1, h2, h3, .serif-display { font-family: var(--serif-display); font-weight: 400; }
+        .typewriter { font-family: var(--typewriter); text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.7rem; }
+        
+        section {
+            min-height: 100vh;
             width: 100%;
-            max-width: 1200px;
-            height: 100%;
-            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            padding: 6rem 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.05);
         }
-        @media (min-width: 1024px) {
-            .modal-container { height: 90vh; }
+
+        #loader {
+            position: fixed; inset: 0; background: var(--dark-brown);
+            z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
+
+        .loader-line { width: 0%; height: 1px; background: var(--gold); margin-top: 24px; }
+
+        /* Navbar Layout */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(13, 10, 8, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .btn-bespoke {
+            border: 1px solid var(--gold);
+            padding: 0.8rem 2.5rem;
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative; overflow: hidden; display: inline-block;
+            text-align: center;
+        }
+
+        .btn-bespoke:hover {
+            background: var(--gold); color: var(--dark-brown);
+        }
+
+        /* Fixed Bottom CTA */
+        #fixed-cta-bar {
+            position: fixed; bottom: -100px; left: 0; width: 100%; height: 80px;
+            z-index: 999; display: flex; transition: bottom 0.5s ease;
+        }
+        .cta-half {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            text-transform: uppercase; font-family: var(--typewriter); font-size: 0.8rem;
+            letter-spacing: 0.2em; transition: 0.3s;
+        }
+        .cta-light { background: var(--paper); color: var(--dark-brown); }
+        .cta-dark { background: var(--dark-brown); color: var(--paper); border-top: 1px solid rgba(212, 175, 55, 0.2); }
+
+        /* Stats Desktop Styling */
+        .stat-card {
+            padding: 1rem 2rem;
+            border-left: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex; flex-direction: column; justify-content: center;
+            min-height: 120px;
+        }
+        .stat-card:first-child { border-left: none; }
+
+        /* Carousel Tracks */
+        #test-track, #team-track, #partner-track { display: flex; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
+
+        /* Pointer Icons */
+        .pointer-list li {
+            position: relative; padding-left: 2.5rem; margin-bottom: 1.2rem;
+            font-size: 0.95rem; color: #BBB3A9; transition: color 0.3s; list-style: none;
+        }
+        .pointer-list li svg {
+            position: absolute; left: 0; top: 0.2rem; width: 1.1rem; height: 1.1rem; color: var(--gold);
+        }
+
+        /* Indicators - Flat Line Style */
+        .indicator-dot {
+            width: 24px; height: 2px; background: rgba(212, 175, 55, 0.2); transition: 0.4s;
+            cursor: pointer;
+        }
+        .indicator-dot.active { background: var(--gold); width: 48px; }
+
+        /* Arrow Navigation Boxes */
+        .nav-arrow-box {
+            width: 50px; height: 50px; border: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.3s; cursor: pointer; color: var(--paper);
+        }
+        .nav-arrow-box:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); color: var(--gold); }
+
+        /* Partners Grid Desktop */
+        .partner-grid-desktop {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; width: 100%;
+        }
+        .partner-card-desktop {
+            height: 110px; display: flex; align-items: center; justify-content: center; text-align: center;
+            padding: 1.5rem; background: var(--rich-brown); border: 1px solid rgba(212, 175, 55, 0.08); transition: 0.5s;
+        }
+        .partner-card-desktop:hover { border-color: var(--gold); }
+        .partner-card-desktop h3 { font-size: 0.75rem; letter-spacing: 0.1em; line-height: 1.4; opacity: 0.7; font-family: var(--serif-display); }
 
         /* Mobile Menu */
-        #mobileMenu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--mahogany);
-            z-index: 1500;
-            transition: right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem;
+        #menu-overlay {
+            position: fixed; inset: 0; background: var(--dark-brown); z-index: 2000;
+            display: none; flex-direction: column; align-items: flex-start; justify-content: center;
+            padding: 4rem 2rem;
         }
-        #mobileMenu.active { right: 0; }
+        .menu-link { font-size: 2.5rem; margin-bottom: 1.5rem; font-family: var(--serif-display); transition: 0.3s; color: var(--paper) !important; }
+        .menu-link:hover { color: var(--gold) !important; padding-left: 1rem; }
 
-        /* Matter Select Placeholder and Sizing */
-        #matterSelect {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        @media (min-width: 1024px) {
-            .hero-grid {
-                display: grid;
-                grid-template-cols: 1.2fr 0.8fr;
-                gap: 4rem;
-                align-items: center;
+        /* --- RESPONSIVE MEDIA QUERIES (ISOLATED) --- */
+        @media (max-width: 1024px) {
+            nav { padding: 1rem 1.5rem; }
+            section { padding: 6rem 1.5rem 4rem; height: auto; text-align: left; align-items: flex-start; }
+            
+            /* Left Alignment Mobile */
+            .hero-content { text-align: left !important; align-items: flex-start !important; width: 100%; margin: 0 !important; }
+            .hero-title { font-size: 3.2rem !important; line-height: 1.1; text-align: left !important; }
+            .hero-para { text-align: left !important; margin-left: 0 !important; }
+            
+            /* Stats 2x2 Grid with equal partitions */
+            .stat-grid-container {
+                display: grid !important; grid-template-columns: repeat(2, 1fr) !important; grid-template-rows: repeat(2, 1fr) !important; width: 100%; border-top: 1px solid rgba(212, 175, 55, 0.1);
+                border-left: 1px solid rgba(212, 175, 55, 0.1);
             }
+            .stat-card {
+                border-left: none; border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding: 1.5rem; width: 100%;
+                text-align: left; align-items: flex-start; border-right: 1px solid rgba(212, 175, 55, 0.1);
+                min-height: 150px;
+            }
+
+            /* Senior Council Mobile Carousel */
+            #team-carousel-container { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; width: 100%; }
+            #team-carousel-container::-webkit-scrollbar { display: none; }
+            .team-slide { min-width: 100%; scroll-snap-align: start; padding-right: 0; }
+
+            /* Partners Table 2x3 Mobile Only */
+            #partner-carousel-container { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; width: 100%; }
+            #partner-carousel-container::-webkit-scrollbar { display: none; }
+            .partner-table-slide { min-width: 100%; scroll-snap-align: start; }
+            .partner-table-grid {
+                display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); gap: 0; border: 0.5px solid rgba(212, 175, 55, 0.1);
+            }
+            .partner-box {
+                height: 110px; display: flex; align-items: center; justify-content: center; text-align: center;
+                padding: 1rem; border: 0.5px solid rgba(212, 175, 55, 0.1); background: var(--rich-brown);
+            }
+            .partner-box h3 { font-size: 0.65rem; letter-spacing: 0.05em; line-height: 1.3; opacity: 0.7; }
         }
+
+        @media (min-width: 1025px) {
+            .hero-content { text-align: center !important; margin: 0 auto !important; align-items: center !important; }
+            .partner-table-slide { display: none; } 
+            .indicator-container { display: flex; } 
+            .team-slide { min-width: 25%; }
+            .testimonial-slide { min-width: 100%; }
+        }
+
+        select option { background-color: var(--rich-brown); color: var(--paper); padding: 10px; }
     </style>
 </head>
-<body class="antialiased">
+<body class="opacity-0 transition-opacity duration-1000">
 
-    <!-- Loading Screen - Theater Experience -->
-    <div id="loadingScreen" class="fixed inset-0 z-[10000] bg-[#050505] flex flex-col items-center justify-center transition-opacity duration-1000">
-        <div class="mb-12 relative">
-            <i data-lucide="scale" class="w-24 h-24 text-[#A68966] animate-pulse"></i>
-            <div class="absolute inset-0 bg-[#A68966]/30 blur-3xl rounded-full"></div>
-        </div>
-        <div class="h-px w-80 bg-white/10 relative overflow-hidden">
-            <div id="loadingBar" class="absolute inset-0 w-0 bg-[#A68966]"></div>
-        </div>
-        <div class="mt-8 overflow-hidden">
-            <p id="loadingText" class="font-cinzel text-[#A68966] text-[11px] tracking-[1.2em] uppercase translate-y-12 transition-transform duration-1000">Vatsyayan</p>
+    <!-- Custom Cursor -->
+    <div id="cursor"><div id="cursor-dot"></div></div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="menu-overlay">
+        <button id="close-menu" class="absolute top-8 right-8 typewriter text-[#D4AF37]">[ CLOSE ]</button>
+        <a href="#about" class="menu-link">The Firm</a>
+        <a href="#services" class="menu-link">Practices</a>
+        <a href="#team" class="menu-link">The Council</a>
+        <a href="#testimonials" class="menu-link">Legacy</a>
+        <a href="#contact" class="menu-link">Consult</a>
+        <div class="mt-12 h-px w-20 bg-[#D4AF37]"></div>
+        <p class="mt-8 typewriter text-[10px] text-[#D4AF37] opacity-60 uppercase">Private & Confidential Registry</p>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loader">
+        <div class="typewriter text-[#D4AF37] opacity-60" id="loader-text">Vatsayayan & Associates</div>
+        <div class="w-64 h-[1px] bg-white/5 relative mt-4">
+            <div class="loader-line" id="loader-bar"></div>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav id="navbar" class="z-[1400] px-8 py-6 flex justify-between items-center bg-transparent">
-        <a href="#" id="logoLink" class="flex items-center gap-4 group">
-            <i data-lucide="scale" class="w-8 h-8 text-[#A68966]"></i>
-            <div class="flex flex-col text-left">
-                <span class="text-2xl font-bold tracking-tighter leading-none font-cinzel text-[#A68966]">VATSYAYAN</span>
-                <span class="text-[10px] tracking-[0.4em] uppercase font-sans text-white group-hover:text-[#A68966] transition-colors">Institutional Counsel</span>
-            </div>
-        </a>
-        <div class="hidden lg:flex gap-12 text-[10px] font-bold uppercase tracking-widest text-white">
-            <a href="#manifesto" class="hover:text-[#A68966] transition-colors">Manifesto</a>
-            <a href="#services" class="hover:text-[#A68966] transition-colors">Services</a>
-            <a href="#panel" class="hover:text-[#A68966] transition-colors">Counsel</a>
-            <a href="#trust" class="hover:text-[#A68966] transition-colors">Trust Matrix</a>
+    <nav id="navbar">
+        <a href="#hero" class="serif-display text-[#D4AF37] font-bold text-xl md:text-2xl tracking-tight">VATSAYAYAN</a>
+        <div class="hidden md:flex gap-16 typewriter text-[9px] font-bold">
+            <a href="#about" class="hover:text-[#D4AF37] transition">The Firm</a>
+            <a href="#services" class="hover:text-[#D4AF37] transition">Practices</a>
+            <a href="#team" class="hover:text-[#D4AF37] transition">The Council</a>
+            <a href="#testimonials" class="hover:text-[#D4AF37] transition">Legacy</a>
+            <a href="#contact" class="hover:text-[#D4AF37] transition">Consult</a>
         </div>
-        <button id="menuTrigger" class="lg:hidden p-2 text-[#A68966] hover:scale-110 transition-transform">
-            <i data-lucide="menu"></i>
-        </button>
+        <div class="flex gap-4 items-center">
+            <a href="#contact" class="btn-bespoke typewriter text-[9px] hidden sm:block">Private Access</a>
+            <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2">
+                <div class="w-6 h-[1px] bg-[#D4AF37]"></div>
+                <div class="w-4 h-[1px] bg-[#D4AF37]"></div>
+            </button>
+        </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobileMenu">
-        <button id="closeMenu" class="absolute top-10 right-10 p-2 text-[#A68966]">
-            <i data-lucide="x" class="w-8 h-8"></i>
-        </button>
-        <div class="flex flex-col gap-10 text-3xl font-cinzel font-bold text-[#A68966] uppercase tracking-[0.2em] text-left">
-            <a href="#manifesto" class="menu-link">Manifesto</a>
-            <a href="#services" class="menu-link">Services</a>
-            <a href="#panel" class="menu-link">Counsel Panel</a>
-            <a href="#trust" class="menu-link">Trust Matrix</a>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <header id="hero" class="relative min-h-screen flex items-center px-8 lg:px-24 bg-[#050505] overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000" 
-                 class="w-full h-full object-cover opacity-20 grayscale scale-110" alt="Legal Pillar">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/50 to-transparent"></div>
+    <!-- 1. Hero Section -->
+    <section id="hero" class="overflow-hidden bg-[#0D0A08]">
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0D0A08] z-10"></div>
+            <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-20 scale-110" id="heroImage">
         </div>
         
-        <div class="relative z-10 hero-grid w-full py-32">
-            <div class="reveal active">
-                <div class="w-16 h-1 bg-[#A68966] mb-12"></div>
-                <h1 class="text-6xl md:text-[7.5rem] font-bold text-white leading-[0.9] mb-12 font-cinzel tracking-tight text-left">
-                    Absolute <br>
-                    <span class="text-[#A68966]">Liaison.</span>
-                </h1>
-                <p class="font-sans text-xl text-white font-light max-w-xl mb-16 leading-relaxed text-left opacity-100 font-semibold">
-                    Transitioning the legal profession from individual performance to a powerhouse corporate ecosystem. 15 Years of Strategic Excellence in Institutional Advocacy.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-10 items-start sm:items-center">
-                    <a href="#panel" class="group px-12 py-6 bg-[#A68966] text-[#1A0F0D] font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-4 hover:bg-white transition-all">
-                        The Counsel Portfolio <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform"></i>
-                    </a>
-                    <div class="flex flex-col gap-5 border-l border-white/20 pl-8">
-                        <div class="flex items-center gap-5">
-                            <span class="text-[#A68966] font-cinzel text-4xl font-bold">15+</span>
-                            <span class="text-[10px] text-white uppercase tracking-widest leading-tight font-bold">Years of <br> Industry Mastery</span>
+        <div class="relative z-10 hero-content flex flex-col max-w-5xl px-4">
+            <p class="typewriter text-[#D4AF37] mb-8 reveal-up opacity-80 uppercase">ESTABLISHED 2009 • Bihar • Jharkhand • Rajasthan</p>
+            <h1 class="hero-title text-5xl md:text-8xl mb-10 reveal-up font-normal tracking-tight leading-[1.1] md:leading-[0.9]">
+                Unrivaled Defense. <br><span class="italic text-[#D4AF37]">Absolute Discretion.</span>
+            </h1>
+            <p class="hero-para text-lg md:text-2xl font-light mb-12 md:mb-16 text-zinc-400 reveal-up max-w-2xl leading-relaxed">
+                Providing bespoke legal strategy for India's most complex litigation and industrial legacies.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 md:gap-8 reveal-up">
+                <a href="#contact" class="btn-bespoke bg-[#D4AF37] text-black hover:bg-transparent hover:text-[#D4AF37] transition duration-500 typewriter">Initiate Enquiry</a>
+                <a href="#services" class="btn-bespoke typewriter hover:bg-white/5 hover:text-[#D4AF37] transition duration-500">View Jurisdictions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. About & Stats -->
+    <section id="about" class="bg-[#1A1410]">
+        <div class="max-w-7xl mx-auto w-full px-4">
+            <div class="grid lg:grid-cols-12 gap-20 items-center mb-20 reveal-section">
+                <div class="lg:col-span-7">
+                    <p class="typewriter text-[#D4AF37] mb-6">Foundational Identity</p>
+                    <h2 class="text-4xl md:text-7xl mb-10 leading-[1.1] tracking-tight">The Architect of <br><span class="italic opacity-60">Legal Precedents.</span></h2>
+                    <p class="text-zinc-400 leading-relaxed mb-12 text-lg">Vatsayayan operates at the intersection of power and policy. For 15 years, we have served as the silent force behind landmark verdicts in the Supreme Court.</p> 
+                </div>
+                <div class="lg:col-span-5">
+                    <div class="aspect-[4/3] bg-zinc-900 border border-white/5 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-50 parallax-img" alt="Office">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-grid-container md:flex md:flex-row justify-between items-center w-full reveal-section border-t border-white/5 pt-0 md:pt-16">
+                <div class="stat-card">
+                    <div class="text-4xl md:text-5xl text-[#D4AF37] serif-display mb-2">70%</div>
+                    <p class="typewriter text-[9px] text-zinc-500 uppercase">Win Rate</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-2xl md:text-4xl text-[#D4AF37] serif-display mb-2 uppercase leading-tight">4 States</div>
+                    <p class="typewriter text-[9px] text-zinc-500 uppercase">Physical Presence</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-4xl md:text-5xl text-[#D4AF37] serif-display mb-2">200+</div>
+                    <p class="typewriter text-[9px] text-zinc-500 uppercase">Titans Served</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-4xl md:text-5xl text-[#D4AF37] serif-display mb-2">15+ Yrs</div>
+                    <p class="typewriter text-[9px] text-zinc-500 uppercase">Excellence</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Services -->
+    <section id="services" class="bg-[#0D0A08] flex-col">
+        <div class="max-w-7xl mx-auto w-full px-4">
+            <div class="mb-16 reveal-section">
+                <p class="typewriter text-[#D4AF37] mb-4">Practice Sectors</p>
+                <h2 class="text-4xl tracking-tight">Bespoke Solutions</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-px bg-white/10 border border-white/10 reveal-section">
+                <div class="bg-[#1A1410] p-8 transition-all duration-700 hover:bg-[#2C241E] group">
+                    <h3 class="text-2xl mb-8 serif-display group-hover:text-[#D4AF37] transition">Corporate Strategy</h3>
+                    <ul class="pointer-list">
+                        <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Cross-border M&A</li>
+                        <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Compliance & Risk</li>
+                        <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>IBC Proceedings</li>
+                    </ul>
+                </div>
+                <div class="bg-[#1A1410] p-8 transition-all duration-700 hover:bg-[#2C241E] group">
+                    <h3 class="text-2xl mb-8 serif-display group-hover:text-[#D4AF37] transition">Litigation Desk</h3>
+                    <ul class="pointer-list">
+                        <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Supreme Court Writs</li>
+                        <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>White Collar Crime</li>
+                        <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Mining Law</li>
+                    </ul>
+                </div>
+                <div class="bg-[#1A1410] p-8 transition-all duration-700 hover:bg-[#2C241E] group">
+                    <h3 class="text-2xl mb-8 serif-display group-hover:text-[#D4AF37] transition">Legacy Planning</h3>
+                    <ul class="pointer-list">
+                        <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>HNI Succession</li>
+                        <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Private Trusts</li>
+                        <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Arbitration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. The Council -->
+    <section id="team" class="bg-[#1A1410] flex-col">
+        <div class="max-w-7xl mx-auto w-full px-4">
+            <div class="mb-16 reveal-section">
+                <p class="typewriter text-[#D4AF37] mb-4">Strategic Council</p>
+                <h2 class="text-4xl md:text-6xl tracking-tight">Senior Partners</h2>
+            </div>
+            
+            <div id="team-carousel-container">
+                <div id="team-track" class="md:grid md:grid-cols-4 md:gap-8">
+                    <!-- Member 1 -->
+                    <div class="team-slide px-0 group cursor-pointer" onclick="openModal('Adv. Kandarp Vatsyayan', 'Proprietor', 'Over 15 years of legal mastery in the Jharkhand High Court. An expert in corporate strategy and industrial policy.')">
+                        <div class="aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5 mb-6">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover grayscale transition duration-700">
                         </div>
-                        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[10px] text-white font-bold uppercase tracking-[0.3em]">
-                            <span class="text-[#A68966]">Jharkhand</span>
-                            <span class="text-white/40">•</span>
-                            <span class="text-[#A68966]">Bihar</span>
-                            <span class="text-white/40">•</span>
-                            <span class="text-[#A68966]">UP</span>
-                            <span class="text-white/40">•</span>
-                            <span class="text-[#A68966]">Rajasthan</span>
+                        <h4 class="text-xl serif-display mb-1">Kandarp Vatsyayan</h4>
+                        <p class="typewriter text-[#D4AF37] text-[8px] mb-4 uppercase tracking-widest">View Profile +</p>
+                    </div>
+                    <!-- Member 2 -->
+                    <div class="team-slide px-0 group cursor-pointer" onclick="openModal('Adv. Ayushi Raj', 'Chief Legal Associate', 'Specialist in high-value corporate portfolios and risk assessment frameworks.')">
+                        <div class="aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5 mb-6">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" class="w-full h-full object-cover grayscale transition duration-700">
+                        </div>
+                        <h4 class="text-xl serif-display mb-1">Ayushi Raj</h4>
+                        <p class="typewriter text-[#D4AF37] text-[9px] mb-4 uppercase tracking-widest">View Profile +</p>
+                    </div>
+                    <!-- Member 3 -->
+                    <div class="team-slide px-0 group cursor-pointer" onclick="openModal('Adv. Amit Kumar', 'Litigation Strategy', 'Twelve years of litigation brilliance, handling complex criminal and consumer disputes.')">
+                        <div class="aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5 mb-6">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover grayscale transition duration-700">
+                        </div>
+                        <h4 class="text-xl serif-display mb-1">Amit Kumar</h4>
+                        <p class="typewriter text-[#D4AF37] text-[8px] mb-4 uppercase tracking-widest">View Profile +</p>
+                    </div>
+                    <!-- Member 4 -->
+                    <div class="team-slide px-0 group cursor-pointer" onclick="openModal('Adv. Himanshu Chauhan', 'Rajasthan Desk', 'Managing operations for the state of Rajasthan with surgical legal precision.')">
+                        <div class="aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5 mb-6">
+                            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover grayscale transition duration-700">
+                        </div>
+                        <h4 class="text-xl serif-display mb-1">Himanshu Chauhan</h4>
+                        <p class="typewriter text-[#D4AF37] text-[8px] mb-4 uppercase tracking-widest">View Profile +</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:hidden indicator-container mt-8" id="team-indicators">
+                <div class="indicator-dot active" onclick="scrollToIndex('team-carousel-container', 0)"></div>
+                <div class="indicator-dot" onclick="scrollToIndex('team-carousel-container', 1)"></div>
+                <div class="indicator-dot" onclick="scrollToIndex('team-carousel-container', 2)"></div>
+                <div class="indicator-dot" onclick="scrollToIndex('team-carousel-container', 3)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Clientele -->
+    <section id="clients" class="bg-[#0D0A08] py-24 border-none flex-col">
+        <div class="max-w-7xl mx-auto w-full px-4 lg:px-6 reveal-section">
+            <p class="typewriter text-[#D4AF37] mb-12 opacity-80 text-left lg:text-center uppercase">Strategic Partners & Clientele</p>
+            
+            <!-- Desktop Grid -->
+            <div class="hidden lg:grid partner-grid-desktop">
+                <div class="partner-card-desktop"><h3>ICICI BANK</h3></div>
+                <div class="partner-card-desktop"><h3>TATA CAPITAL</h3></div>
+                <div class="partner-card-desktop"><h3>BIRLA CAPITAL (LAP)</h3></div>
+                <div class="partner-card-desktop"><h3>BIRLA CAPITAL (PRIME)</h3></div>
+                <div class="partner-card-desktop"><h3>JANA SFB</h3></div>
+                <div class="partner-card-desktop"><h3>BANDHAN BANK</h3></div>
+                <div class="partner-card-desktop"><h3>AADHAR HOUSING</h3></div>
+                <div class="partner-card-desktop"><h3>CHOLAMANDALAM (LAP)</h3></div>
+                <div class="partner-card-desktop"><h3>CHOLAMANDALAM (HOME)</h3></div>
+                <div class="partner-card-desktop"><h3>AYE FINANCE</h3></div>
+                <div class="partner-card-desktop"><h3>MANAPURRAM FINANCE</h3></div>
+                <div class="partner-card-desktop"><h3>IIFL SAMASTA</h3></div>
+                <div class="partner-card-desktop"><h3>HINDUJA HOUSING</h3></div>
+                <div class="partner-card-desktop"><h3>BAJAJ FINSERV</h3></div>
+                <div class="partner-card-desktop"><h3>POSHN TECH</h3></div>
+                <div class="partner-card-desktop opacity-20"><h3>CONFIDENTIAL</h3></div>
+            </div>
+
+            <!-- Mobile Carousel -->
+            <div class="lg:hidden" id="partner-carousel-container">
+                <div id="partner-track">
+                    <div class="partner-table-slide">
+                        <div class="partner-table-grid">
+                            <div class="partner-box"><h3>ICICI BANK</h3></div>
+                            <div class="partner-box"><h3>TATA CAPITAL</h3></div>
+                            <div class="partner-box"><h3>BIRLA CAPITAL</h3></div>
+                            <div class="partner-box"><h3>JANA SFB</h3></div>
+                            <div class="partner-box"><h3>BANDHAN BANK</h3></div>
+                            <div class="partner-box"><h3>AADHAR HOUSING</h3></div>
+                        </div>
+                    </div>
+                    <div class="partner-table-slide">
+                        <div class="partner-table-grid">
+                            <div class="partner-box"><h3>AYE FINANCE</h3></div>
+                            <div class="partner-box"><h3>MANAPURRAM</h3></div>
+                            <div class="partner-box"><h3>IIFL SAMASTA</h3></div>
+                            <div class="partner-box"><h3>HINDUJA</h3></div>
+                            <div class="partner-box"><h3>BAJAJ FINSERV</h3></div>
+                            <div class="partner-box"><h3>POSHN</h3></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="hidden lg:block">
-                <div class="border border-white/20 p-12 bg-white/5 backdrop-blur-md">
-                    <p class="text-[11px] text-[#A68966] font-bold uppercase tracking-[0.5em] mb-6 text-left">Current Mandate</p>
-                    <p class="text-white font-cinzel text-2xl leading-relaxed italic text-left">"Providing end-to-end legal solutions under one roof with utmost accuracy, clubbing modern technology with administrative insight."</p>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <!-- Manifesto Section -->
-    <section id="manifesto" class="py-48 px-8 lg:px-24 bg-white relative">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-24">
-            <div class="lg:w-1/2 reveal">
-                <span class="text-[11px] font-sans font-bold uppercase tracking-[0.6em] text-[#A68966] mb-8 block text-left">01 / Manifesto</span>
-                <h2 class="text-5xl md:text-7xl font-bold text-[#1A0F0D] leading-tight font-cinzel mb-12 text-left">
-                    Beyond the <br> <span class="text-[#A68966] italic">Individual.</span>
-                </h2>
-                <div class="w-24 h-px bg-black/20 mb-12"></div>
-                <p class="font-sans text-[#1A0F0D] leading-relaxed text-2xl font-light text-left font-semibold">
-                    The legal profession is by-and-large confined to individuals who depend on their individual skills. We aim to change that. Vatsyayan & Associates is a professionally managed organization that delivers end-to-end legal solutions under one roof.
-                </p>
-            </div>
-            <div class="lg:w-1/2 flex flex-col justify-end gap-16 reveal">
-                <div class="bg-[#F9F7F4] p-12 border-l-4 border-[#A68966]">
-                    <i data-lucide="shield-check" class="w-14 h-14 text-[#A68966] mb-8"></i>
-                    <p class="text-xl font-bold italic leading-relaxed text-left text-black">"Teamwork is at the heart of our philosophy. Our team has a comprehensive understanding of the Indian Legal system and expertise in superb liaison to take a step ahead."</p>
-                </div>
-                <div class="grid grid-cols-2 gap-y-16 gap-x-10">
-                    <div>
-                        <p class="text-5xl font-cinzel font-bold text-[#1A0F0D] mb-3">100%</p>
-                        <p class="text-[11px] text-[#A68966] uppercase tracking-widest font-bold">Transparency</p>
-                    </div>
-                    <div>
-                        <p class="text-5xl font-cinzel font-bold text-[#1A0F0D] mb-3">4+</p>
-                        <p class="text-[11px] text-[#A68966] uppercase tracking-widest font-bold">States Presence</p>
-                    </div>
-                    <div>
-                        <p class="text-5xl font-cinzel font-bold text-[#1A0F0D] mb-3">15Y</p>
-                        <p class="text-[11px] text-[#A68966] uppercase tracking-widest font-bold">Legal Mastery</p>
-                    </div>
-                    <div>
-                        <p class="text-5xl font-cinzel font-bold text-[#1A0F0D] mb-3">FIXED</p>
-                        <p class="text-[11px] text-[#A68966] uppercase tracking-widest font-bold">TAT Execution</p>
-                    </div>
-                </div>
+            <div class="md:hidden indicator-container mt-8" id="partner-indicators">
+                <div class="indicator-dot active" onclick="scrollToIndex('partner-carousel-container', 0)"></div>
+                <div class="indicator-dot" onclick="scrollToIndex('partner-carousel-container', 1)"></div>
             </div>
         </div>
     </section>
 
-    <!-- Services Grid - Staggered Scroll Animations Restored -->
-    <section id="services" class="py-48 px-8 lg:px-24 bg-[#1A0F0D] text-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-32 gap-12">
-                <div class="reveal">
-                    <span class="text-[11px] font-sans font-bold uppercase tracking-[0.6em] text-[#A68966] mb-8 block text-left">02 / Verticals</span>
-                    <h2 class="text-5xl md:text-8xl font-bold font-cinzel text-white text-left">Practice Areas.</h2>
+    <!-- 6. Testimonials -->
+    <section id="testimonials" class="bg-[#1A1410] italic overflow-hidden flex-col">
+        <div class="max-w-5xl mx-auto w-full text-left lg:text-center px-4 relative reveal-section">
+            <p class="typewriter text-[#D4AF37] mb-12 not-italic uppercase">The Legacy of Trust</p>
+            <div class="overflow-hidden w-full">
+                <div id="test-track" class="w-full">
+                    <div class="testimonial-slide flex flex-col justify-center items-center">
+                        <h2 class="text-2xl md:text-5xl leading-snug mb-12 serif-display">"Vatsayayan is the only sanctuary for true discretion and legal brilliance."</h2>
+                        <p class="typewriter text-[#D4AF37] not-italic">— Managing Director, Fortune India 500</p>
+                    </div>
+                    <div class="testimonial-slide flex flex-col justify-center items-center">
+                        <h2 class="text-2xl md:text-5xl leading-snug mb-12 serif-display">"Their understanding of regional liaison and corporate law is unmatched."</h2>
+                        <p class="typewriter text-[#D4AF37] not-italic">— International Private Equity Lead</p>
+                    </div>
+                    <div class="testimonial-slide flex flex-col justify-center items-center">
+                        <h2 class="text-2xl md:text-5xl leading-snug mb-12 serif-display">"Strategy combined with judicial absolute precision defines their practice."</h2>
+                        <p class="typewriter text-[#D4AF37] not-italic">— CEO, Global Infrastructure Group</p>
+                    </div>
                 </div>
-                <p class="text-white max-w-sm text-sm uppercase tracking-widest leading-loose text-left reveal font-bold">Comprehensive solutions from corporate due diligence to state-level litigation.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                <!-- Group 1 -->
-                <div class="service-card p-12 transition-all group reveal" style="transition-delay: 100ms;">
-                    <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">01</span>
-                    <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Corporate Finance</h3>
-                    <ul class="space-y-6 text-white font-sans text-[11px] uppercase tracking-widest leading-relaxed text-left font-bold">
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Legal Due Diligence</li>
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> SARFAESI Enforcement</li>
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Sec 9 & 17 Execution</li>
-                    </ul>
+            <!-- Navigation -->
+            <div class="flex items-center justify-start lg:justify-center gap-6 mt-16">
+                <div class="nav-arrow-box" onclick="moveTestimonial(-1)" id="arrow-prev">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
                 </div>
-                <!-- Group 2 -->
-                <div class="service-card p-12 transition-all group reveal" style="transition-delay: 200ms;">
-                    <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">02</span>
-                    <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Litigation</h3>
-                    <ul class="space-y-6 text-white font-sans text-[11px] uppercase tracking-widest leading-relaxed text-left font-bold">
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> High Court Advocacy</li>
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Criminal & Civil Trial</li>
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> 138 NI Act Matters</li>
-                    </ul>
+                <div class="flex gap-4" id="testimonial-indicators">
+                    <div class="indicator-dot active" onclick="setTestimonial(0)"></div>
+                    <div class="indicator-dot" onclick="setTestimonial(1)"></div>
+                    <div class="indicator-dot" onclick="setTestimonial(2)"></div>
                 </div>
-                <!-- Group 3 -->
-                <div class="service-card p-12 transition-all group reveal" style="transition-delay: 300ms;">
-                    <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">03</span>
-                    <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Industrial</h3>
-                    <ul class="space-y-6 text-white font-sans text-[11px] uppercase tracking-widest leading-relaxed text-left font-bold">
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Mining Law Matters</li>
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Land Acquisition</li>
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Labour Disputes</li>
-                    </ul>
-                </div>
-                <!-- Group 4 -->
-                <div class="service-card p-12 transition-all group reveal" style="transition-delay: 400ms;">
-                    <span class="text-[#A68966] font-cinzel text-3xl font-bold mb-12 block">04</span>
-                    <h3 class="text-2xl font-cinzel font-bold mb-8 text-white">Private Equity</h3>
-                    <ul class="space-y-6 text-white font-sans text-[11px] uppercase tracking-widest leading-relaxed text-left font-bold">
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Insurance Claims</li>
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> Matrimonial Dispute</li>
-                        <li class="flex items-start gap-4"><i data-lucide="check" class="w-4 h-4 text-[#A68966] shrink-0"></i> MACT Settlements</li>
-                    </ul>
+                <div class="nav-arrow-box" onclick="moveTestimonial(1)" id="arrow-next">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- The Panel Section - Restored Vertical Profiles -->
-    <section id="panel" class="py-48 px-8 lg:px-24 bg-[#F9F7F4]">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-32 reveal">
-                <span class="text-[11px] font-sans font-bold uppercase tracking-[0.6em] text-[#A68966] mb-8 block text-center">03 / Counsel</span>
-                <h2 class="text-6xl md:text-9xl font-bold text-[#1A0F0D] font-cinzel text-center">The Panel.</h2>
-            </div>
-            
-            <div id="teamGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-32 max-w-6xl mx-auto">
-                <!-- Injected via JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Continuous Marquee Section - Fixed Header -->
-    <section id="trust" class="trust-section">
-        <div class="max-w-7xl mx-auto px-8 mb-24 reveal">
-            <h2 class="text-3xl md:text-6xl text-white font-cinzel font-bold text-center uppercase tracking-[0.3em]">Institutional Trust</h2>
-            <div class="w-24 h-1 bg-[#A68966] mx-auto mt-8"></div>
-        </div>
-        <div class="marquee-wrapper">
-            <div class="marquee-track" id="marqueeTrack">
-                <!-- Injected via JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- High-Value Selection CTA - Optimized Sizes -->
-    <section class="py-48 px-8 lg:px-24 bg-[#050505]">
-        <div class="max-w-3xl mx-auto">
-            <div class="text-center mb-24 reveal">
-                <h2 class="text-5xl md:text-8xl text-white font-bold mb-10 font-cinzel tracking-tight text-center">Secure Counsel.</h2>
-                <div class="w-20 h-px bg-[#A68966] mx-auto mb-10"></div>
-                <p class="font-sans text-white text-[11px] tracking-[0.8em] uppercase font-bold text-center">Privileged Intake Protocol</p>
-            </div>
-            
-            <div class="space-y-16 reveal">
-                <div class="group">
-                    <label class="text-[11px] font-sans font-bold uppercase tracking-[0.5em] text-[#A68966] mb-10 block text-left">Matter Designation</label>
-                    <div class="relative border-b border-[#A68966]/40 py-6">
-                        <select id="matterSelect" class="w-full bg-transparent text-white font-cinzel text-lg md:text-xl focus:outline-none cursor-pointer appearance-none leading-tight py-2 pr-10 overflow-hidden">
-                            <option value="" disabled selected>Select Practice Scope</option>
-                            <option value="corporate" class="bg-[#050505]">Corporate Due Diligence & M&A</option>
-                            <option value="litigation" class="bg-[#050505]">High Court Litigation Syndicate</option>
-                            <option value="mining" class="bg-[#050505]">Industrial Mining & Land Portfolio</option>
-                            <option value="enforcement" class="bg-[#050505]">SARFAESI & Asset Recovery</option>
-                        </select>
-                        <i data-lucide="chevron-down" class="absolute right-0 top-1/2 -translate-y-1/2 text-[#A68966] w-6 h-6 pointer-events-none"></i>
-                    </div>
+    <!-- 7. CTA & Footer -->
+    <section id="contact" class="bg-[#0D0A08] flex-col pt-40">
+        <div class="max-w-4xl mx-auto w-full text-left lg:text-center mb-auto px-4 reveal-section">
+            <h2 class="text-5xl md:text-8xl serif-display mb-8">Initiate Enquiry.</h2>
+            <div class="bg-[#1A1410] p-8 md:p-20 border border-white/5 shadow-2xl">
+                <div class="grid gap-6">
+                    <input type="text" id="ctaName" placeholder="NAME" class="bg-transparent border-b border-white/10 p-4 typewriter text-[10px] outline-none focus:border-[#D4AF37]">
+                    <input type="text" id="ctaLoc" placeholder="CITY" class="bg-transparent border-b border-white/10 p-4 typewriter text-[10px] outline-none focus:border-[#D4AF37]">
+                    <select id="ctaService" class="w-full bg-transparent border-b border-white/10 p-4 typewriter text-[10px] outline-none appearance-none cursor-pointer">
+                        <option value="" disabled selected>NATURE OF ENGAGEMENT</option>
+                        <option value="Litigation">INDUSTRIAL LITIGATION</option>
+                        <option value="Arbitration">GLOBAL ARBITRATION</option>
+                        <option value="Corporate">CORPORATE DEFENSE</option>
+                    </select>
+                    <button onclick="triggerWA()" class="btn-bespoke bg-[#D4AF37] text-black w-full py-5 flex items-center justify-center gap-4 group">
+                        <span class="typewriter text-[10px] font-bold">Initiate Consultation</span>
+                    </button>
                 </div>
-
-                <button class="w-full py-10 bg-[#A68966] text-[#1A0F0D] font-cinzel font-bold uppercase tracking-[0.3em] text-[11px] transition-all hover:bg-white hover:tracking-[0.5em] shadow-2xl">
-                    Initiate Consultation
-                </button>
             </div>
         </div>
+        <footer class="w-full py-12 text-left md:text-center px-8 border-t border-white/5 opacity-40 text-[9px] typewriter uppercase">
+            &copy; 2026 VATSAYAYAN CHAMBERS LLP. PRIVATE & CONFIDENTIAL.
+        </footer>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#1A0F0D] py-32 px-8 border-t border-white/10 text-center">
-        <div class="flex flex-col items-center gap-16">
-            <i data-lucide="scale" class="w-12 h-12 text-[#A68966]"></i>
-            <div class="flex flex-col gap-6">
-                <span class="text-3xl font-bold text-[#A68966] font-cinzel tracking-[0.3em]">VATSYAYAN & ASSOCIATES</span>
-                <p class="text-[12px] text-white uppercase tracking-[0.6em] leading-relaxed font-sans max-w-xl font-bold">
-                    Professionally Managed Legal Syndicate <br> Delivering Excellence Through Liaison and Strategic Insight
-                </p>
-            </div>
-            <div class="w-20 h-px bg-white/10"></div>
-            <p class="text-[10px] text-white uppercase tracking-[1em] font-bold">© 2024. Proprietary Pitch Artifact.</p>
-        </div>
-    </footer>
+    <!-- Fixed Floating CTA -->
+    <div id="fixed-cta-bar">
+        <a href="#contact" class="cta-half cta-light">Initiate Enquiry</a>
+        <a href="https://wa.me/919810974035" target="_blank" class="cta-half cta-dark">WhatsApp Counsel</a>
+    </div>
 
-    <!-- Profile Modal - High Contrast Bio -->
-    <div id="profileModal">
-        <div class="modal-container">
-            <button id="closeModal" class="absolute top-6 right-6 lg:top-10 lg:right-10 z-[11000] p-4 bg-[#A68966] text-[#1A0F0D] rounded-full hover:scale-110 transition-transform shadow-2xl">
-                <i data-lucide="x" class="w-7 h-7"></i>
-            </button>
-            <div id="modalBody" class="flex flex-col lg:flex-row min-h-full">
-                <!-- Injected via JS -->
-            </div>
+    <!-- Member Modal -->
+    <div id="memberModal" class="fixed inset-0 bg-black/95 z-[3000] hidden items-center justify-center p-8" onclick="closeModal()">
+        <div class="bg-[#1A1410] max-w-xl w-full p-8 border border-white/10 relative" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-[#D4AF37] typewriter" onclick="closeModal()">[ CLOSE ]</button>
+            <h2 id="modalName" class="text-3xl md:text-4xl serif-display mb-2"></h2>
+            <p id="modalRank" class="typewriter text-[#D4AF37] text-[9px] mb-4 uppercase"></p>
+            <div class="w-16 h-1 bg-[#D4AF37] mb-6"></div>
+            <p id="modalBio" class="text-zinc-400 text-base leading-relaxed"></p>
         </div>
     </div>
 
     <script>
-        const teamData = [
-            {
-                name: "Kandarp Vatsyayan",
-                role: "Proprietor & Advocate",
-                creds: "B.A.LL.B (Bangalore University)",
-                img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000",
-                summary: "15 years of industry mastery. Formerly Senior Legal Manager for steel and mining giants.",
-                detailed: "Founder of Vatsyayan & Associates. Kandarp completed his 5-year LLB from Bangalore University in 2009. He has spearheaded legal portfolios for greenfield projects and global conglomerates. He specializes in corporate finance, mining law, and SARFAESI enforcement.",
-                liaison: "Unparalleled administrative liaison with local Police and Government authorities."
-            },
-            {
-                name: "Ms. Ayushi Raj",
-                role: "Chief Legal Associate",
-                creds: "Advocate, Jharkhand High Court",
-                img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000",
-                summary: "Seasoned professional handling all Institutional Clients for the firm.",
-                detailed: "Ayushi Raj is committed to operational excellence and ethical standards. She manages institutional risk frameworks and ensures smooth closure of high-stakes corporate assignments under rigorous timelines.",
-                liaison: "Strategic lead for Corporate Client Relationship Management."
-            },
-            {
-                name: "Mr. Amit Kumar",
-                role: "Legal Associate",
-                creds: "B.A.LL.B (Symbiosis Pune)",
-                img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=1000",
-                summary: "Expert litigation counsel with a 12-year track record in criminal and consumer law.",
-                detailed: "A graduate of Symbiosis Pune, Amit handles critical litigation matters including Criminal Defense, Matrimonial disputes, and MACT cases. He is recognized for securing favorable outcomes in record turnaround times.",
-                liaison: "Lead Counsel for Subordinate and Appellate Court Litigation."
-            },
-            {
-                name: "Mr. Himanshu Singh Chauhan",
-                role: "Rajasthan Operations Lead",
-                creds: "Advocate, Rajasthan High Court",
-                img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1000",
-                summary: "Brings a powerful blend of legal proficiency and strategic business acumen to Rajasthan.",
-                detailed: "Specializing in cyber complaints, precise drafting, and documentation. Himanshu is a skilled negotiator in Rajasthan's legal landscape, navigating complex corporate ecosystems with meticulous precision.",
-                liaison: "Primary Strategic Voice for Rajasthan Regional Operations."
-            }
-        ];
+        gsap.registerPlugin(ScrollTrigger);
 
-        const partners = ["ICICI BANK", "TATA CAPITAL", "ADITYA BIRLA", "JANA SMALL", "BANDHAN BANK", "AADHAR HOUSING", "CHOLAMANDALAM", "AYE FINANCE", "BAJAJ FINSERV", "POSHN TECHNOLOGY"];
+        // Mobile Menu Navigation
+        const hamburger = document.getElementById('hamburger');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const closeMenu = document.getElementById('close-menu');
 
-        lucide.createIcons();
-
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
-
-        // Mobile Menu
-        const menuTrigger = document.getElementById('menuTrigger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeMenu = document.getElementById('closeMenu');
-        menuTrigger.onclick = () => mobileMenu.classList.add('active');
-        closeMenu.onclick = () => mobileMenu.classList.remove('active');
-        document.querySelectorAll('.menu-link').forEach(link => {
-            link.onclick = () => mobileMenu.classList.remove('active');
+        hamburger.addEventListener('click', () => {
+            menuOverlay.style.display = 'flex';
+            gsap.fromTo(menuOverlay, {opacity: 0}, {opacity: 1, duration: 0.4});
+            gsap.from(".menu-link", {x: -30, opacity: 0, stagger: 0.1, delay: 0.2});
         });
 
-        document.getElementById('logoLink').onclick = (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        const hideMenu = () => { gsap.to(menuOverlay, {opacity: 0, duration: 0.3, onComplete: () => menuOverlay.style.display = 'none'}); };
+        closeMenu.addEventListener('click', hideMenu);
+        menuOverlay.querySelectorAll('a').forEach(l => l.addEventListener('click', hideMenu));
+
+        // Desktop Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => { gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 }); });
+        document.querySelectorAll('a, button, select, input, .cursor-pointer').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        // Fixed Bar logic
+        window.addEventListener('scroll', () => {
+            const bar = document.getElementById('fixed-cta-bar');
+            bar.style.bottom = window.scrollY > 800 ? "0" : "-100px";
+        });
+
+        // Reveal Sequences
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+            document.body.classList.remove('opacity-0');
+            gsap.to("#loader", { opacity: 0, duration: 0.8, delay: 1, pointerEvents: "none" });
+            gsap.utils.toArray(".reveal-up").forEach((el, i) => { gsap.from(el, { opacity: 0, y: 30, duration: 1, delay: 1.5 + (i * 0.1) }); });
+
+            // Scroll Animations
+            gsap.utils.toArray(".reveal-section").forEach(section => {
+                gsap.from(section, {
+                    scrollTrigger: { trigger: section, start: "top 90%", toggleActions: "play none none reverse" },
+                    opacity: 0, y: 40, duration: 1.2, ease: "power2.out"
+                });
+            });
+        });
+
+        // Manual Scroll Tracker Logic
+        const setupScrollTrack = (containerId, indicatorId) => {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            container.addEventListener('scroll', () => {
+                const index = Math.round(container.scrollLeft / container.offsetWidth);
+                const dots = document.getElementById(indicatorId).querySelectorAll('.indicator-dot');
+                dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+            });
         };
 
-        // Header Scroll - Reinforced Fixed Top
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            const logoSubtext = nav.querySelector('.font-sans');
-            if (window.scrollY > 80) {
-                nav.classList.add('bg-[#1A0F0D]/95', 'py-4', 'shadow-2xl');
-                nav.classList.remove('bg-transparent', 'py-6');
-                logoSubtext.style.color = '#A68966';
-            } else {
-                nav.classList.add('bg-transparent', 'py-6');
-                nav.classList.remove('bg-[#1A0F0D]/95', 'py-4', 'shadow-2xl');
-                logoSubtext.style.color = '#FFFFFF';
-            }
-        });
+        setupScrollTrack('team-carousel-container', 'team-indicators');
+        setupScrollTrack('partner-carousel-container', 'partner-indicators');
 
-        // Team Injection - Vertical Aspect Ratio Corrected
-        const teamGrid = document.getElementById('teamGrid');
-        teamData.forEach((m) => {
-            const card = document.createElement('div');
-            card.className = "group cursor-pointer reveal flex flex-col";
-            card.innerHTML = `
-                <div class="relative overflow-hidden aspect-[3/4] mb-10 border border-black/5 bg-white">
-                    <img src="${m.img}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" alt="${m.name}">
-                    <div class="absolute inset-0 bg-[#1A0F0D]/20 group-hover:opacity-0 transition-opacity"></div>
-                </div>
-                <div class="flex flex-col text-left">
-                    <span class="text-[10px] text-[#A68966] font-bold uppercase tracking-[0.4em] mb-4 block">${m.role}</span>
-                    <h3 class="text-4xl font-cinzel font-bold text-[#1A0F0D] mb-6">${m.name}</h3>
-                    <p class="text-base font-bold text-stone-800 max-w-sm leading-relaxed mb-10 italic text-left">"${m.summary}"</p>
-                    <div class="flex items-center gap-5 text-[10px] font-bold uppercase tracking-[0.3em] text-[#A68966] group-hover:text-[#1A0F0D] transition-colors">
-                        <span>DETAILED COUNSEL PROFILE</span>
-                        <div class="w-10 h-10 flex items-center justify-center border border-[#A68966]/40 group-hover:bg-[#A68966] group-hover:border-[#A68966] group-hover:text-white transition-all">
-                            <i data-lucide="plus" class="w-4 h-4"></i>
-                        </div>
-                    </div>
-                </div>
-            `;
-            card.onclick = () => openProfile(m);
-            teamGrid.appendChild(card);
-        });
-
-        // Marquee Injection
-        const marqueeTrack = document.getElementById('marqueeTrack');
-        const marqueeContent = partners.map(p => {
-            const parts = p.split(' ');
-            return `
-                <div class="marquee-item">
-                    ${parts[0]}
-                    ${parts[1] ? `<span>${parts[1]}</span>` : ''}
-                    ${parts[2] ? `<span>${parts[2]}</span>` : ''}
-                </div>
-            `;
-        }).join('');
-        marqueeTrack.innerHTML = marqueeContent + marqueeContent;
-
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-        lucide.createIcons();
-
-        // Modal Logic Corrected - High Contrast
-        const modal = document.getElementById('profileModal');
-        const modalBody = document.getElementById('modalBody');
-        const closeModalBtn = document.getElementById('closeModal');
-
-        function openProfile(m) {
-            modalBody.innerHTML = `
-                <div class="lg:w-1/2 bg-[#050505] p-12 flex flex-col justify-end min-h-[60vh] lg:min-h-auto relative overflow-hidden">
-                    <img src="${m.img}" class="absolute inset-0 w-full h-full object-cover opacity-70 grayscale">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30"></div>
-                    <div class="relative z-10 text-left">
-                        <span class="text-[11px] text-[#A68966] font-bold uppercase tracking-[0.6em] mb-6 block">Counsel Bio</span>
-                        <h2 class="text-5xl lg:text-7xl font-cinzel font-bold text-white mb-6 leading-none tracking-tighter">${m.name}</h2>
-                        <p class="text-[#A68966] font-sans text-sm uppercase tracking-[0.4em] font-bold italic opacity-90">${m.role}</p>
-                    </div>
-                </div>
-                <div class="lg:w-1/2 p-12 lg:p-24 flex flex-col justify-center text-left bg-[#F9F7F4]">
-                    <div class="mb-20">
-                        <p class="text-[11px] font-bold uppercase tracking-[0.6em] text-[#A68966] mb-10">Mandate & History</p>
-                        <p class="text-2xl md:text-3xl font-bold leading-relaxed text-[#000000] font-serif">${m.detailed}</p>
-                    </div>
-                    <div class="space-y-16">
-                        <div class="flex gap-10">
-                            <i data-lucide="award" class="text-[#A68966] shrink-0 w-8 h-8"></i>
-                            <div class="text-left">
-                                <p class="text-[11px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-4">Qualifications</p>
-                                <p class="text-lg font-bold font-sans text-[#000000]">${m.creds}</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-10">
-                            <i data-lucide="shield" class="text-[#A68966] shrink-0 w-8 h-8"></i>
-                            <div class="text-left">
-                                <p class="text-[11px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-4">Core Competency</p>
-                                <p class="text-lg font-bold font-sans italic text-[#000000]">"${m.liaison}"</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            lucide.createIcons();
+        function scrollToIndex(containerId, index) {
+            const container = document.getElementById(containerId);
+            container.scrollTo({ left: container.offsetWidth * index, behavior: 'smooth' });
         }
 
-        const closeModal = (e) => {
-            if (e) e.stopPropagation();
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        };
+        // Testimonial Navigation
+        let currentTestIdx = 0;
+        const totalTests = 3;
+        function moveTestimonial(dir) {
+            currentTestIdx = (currentTestIdx + dir + totalTests) % totalTests;
+            setTestimonial(currentTestIdx);
+        }
 
-        closeModalBtn.onclick = closeModal;
-        modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+        function setTestimonial(idx) {
+            currentTestIdx = idx;
+            document.getElementById('test-track').style.transform = `translateX(-${currentTestIdx * 100}%)`;
+            const dots = document.getElementById('testimonial-indicators').querySelectorAll('.indicator-dot');
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentTestIdx));
+        }
 
-        // Loading Screen
-        window.addEventListener('load', () => {
-            const loadingBar = document.getElementById('loadingBar');
-            const loadingText = document.getElementById('loadingText');
-            
-            setTimeout(() => {
-                loadingBar.style.transition = 'width 2.8s cubic-bezier(0.5, 0, 0.3, 1)';
-                loadingBar.style.width = '100%';
-            }, 200);
+        function triggerWA() {
+            const name = document.getElementById('ctaName').value;
+            if(!name) return;
+            window.open(`https://wa.me/919810974035?text=VATSAYAYAN%20ENQUIRY:%20${name}`, '_blank');
+        }
 
-            setTimeout(() => {
-                loadingText.style.transform = 'translateY(0)';
-            }, 1200);
+        function openModal(name, rank, bio) {
+            document.getElementById('modalName').innerText = name;
+            document.getElementById('modalRank').innerText = rank;
+            document.getElementById('modalBio').innerText = bio;
+            document.getElementById('memberModal').style.display = 'flex';
+        }
 
-            setTimeout(() => {
-                const ls = document.getElementById('loadingScreen');
-                ls.style.opacity = '0';
-                setTimeout(() => ls.style.display = 'none', 1200);
-            }, 3800);
-        });
+        function closeModal() { document.getElementById('memberModal').style.display = 'none'; }
     </script>
 </body>
 </html>
